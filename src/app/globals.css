@@ -1,0 +1,214 @@
+@import "tailwindcss";
+
+:root {
+  --cdu-teal: #52b7c1;
+  --cdu-blue: #2d3c4b;
+  --cdu-gold: #ffa600;
+  --cdu-red: #bf111b;
+  --cdu-ink: #1b191d;
+  --cdu-surface: #eef6f7;
+  --background: #e8f4f5;
+  --foreground: #1b191d;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-body);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(82, 183, 193, 0.45), transparent 55%),
+    radial-gradient(900px 500px at 100% 0%, rgba(255, 166, 0, 0.18), transparent 50%),
+    linear-gradient(180deg, #d9eef1 0%, #eef6f7 40%, #f7fbfc 100%);
+  color: var(--foreground);
+  font-family: var(--font-body), "Segoe UI", sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--cdu-gold);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  z-index: 100;
+  border-radius: 0.5rem;
+  background: var(--cdu-blue);
+  color: white;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.sticky-bar {
+  --header-progress: 0;
+  background: color-mix(
+    in srgb,
+    #2d3c4b calc(55% + var(--header-progress) * 40%),
+    transparent
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid
+    color-mix(in srgb, white calc(var(--header-progress) * 18%), transparent);
+  transition: background 120ms linear, border-color 120ms linear;
+}
+
+.sticky-bar[data-compact="true"] {
+  box-shadow: 0 8px 24px rgba(27, 25, 29, 0.18);
+}
+
+.hero-shell {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: min(92vh, 780px);
+  background:
+    linear-gradient(120deg, rgba(45, 60, 75, 0.88) 0%, rgba(45, 60, 75, 0.55) 45%, rgba(82, 183, 193, 0.35) 100%),
+    linear-gradient(180deg, #2d3c4b 0%, #3a5560 100%);
+  color: white;
+}
+
+.hero-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      -18deg,
+      transparent 0 18px,
+      rgba(255, 255, 255, 0.03) 18px 19px
+    );
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.wappen-flyer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  width: min(58vw, 280px);
+  pointer-events: none;
+  will-change: transform, width;
+  opacity: 0;
+}
+
+.wappen-flyer.is-ready {
+  opacity: 1;
+}
+
+.wappen-flyer.is-snapped .coat-swing {
+  animation: none;
+}
+
+.coat-of-arms {
+  width: 100%;
+  height: auto;
+  display: block;
+  line-height: 0;
+  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.28));
+}
+
+.coat-of-arms.coat-compact {
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.28));
+}
+
+.coat-of-arms img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.coat-swing {
+  transform-origin: 50% 8%;
+  animation: coat-float 5.5s ease-in-out infinite;
+}
+
+@keyframes coat-float {
+  0%,
+  100% {
+    transform: rotate(-2.5deg) translateY(0);
+  }
+  50% {
+    transform: rotate(2.5deg) translateY(-8px);
+  }
+}
+
+.hero-fade-in {
+  animation: fade-up 0.9s ease-out both;
+}
+
+.hero-fade-in-delay {
+  animation: fade-up 0.9s ease-out 0.2s both;
+}
+
+.hero-fade-in-delay-2 {
+  animation: fade-up 0.9s ease-out 0.4s both;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .coat-swing,
+  .hero-fade-in,
+  .hero-fade-in-delay,
+  .hero-fade-in-delay-2 {
+    animation: none !important;
+  }
+
+  .wappen-flyer {
+    transition: none !important;
+  }
+}
