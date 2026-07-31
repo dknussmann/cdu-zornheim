@@ -54,6 +54,8 @@ npm run db:seed        # seed sample data (needs DATABASE_URL)
 | `NEXT_PUBLIC_SITE_URL` | Absolute URLs / links |
 | Clerk keys | Only if testing Clerk login |
 | `NEXT_PUBLIC_LAUNCHDARKLY_CLIENT_SIDE_ID` | Calendar feature flag (without it, calendar stays visible) |
+| `SLACK_WEBHOOK_URL` | Incoming Webhook → Slack `C0BM6R2K10E` on Preview ready |
+| `VERCEL_WEBHOOK_SECRET` | Verify signature on `/api/webhooks/vercel` |
 
 ### Verify changes
 
@@ -61,6 +63,33 @@ npm run db:seed        # seed sample data (needs DATABASE_URL)
 2. `npm run build` when touching routing, server actions, or env-dependent code
 3. Exercise the UI on `http://localhost:3000` when possible (feed, composer if admin session works, calendar)
 4. After schema changes: `npm run db:push` (only with a non-production / branch database URL)
+
+### Slack preview notifications
+
+When a Vercel **Preview** deployment succeeds, post a short feature summary + Preview link to Slack channel `C0BM6R2K10E`.
+
+**App webhook (primary):** `POST /api/webhooks/vercel`  
+**GitHub Action (backup):** `.github/workflows/slack-preview.yml`
+
+#### One-time setup
+
+1. **Slack Incoming Webhook** (recommended)  
+   - Slack → Apps → Incoming Webhooks → Add to channel `C0BM6R2K10E`  
+   - Copy URL → Vercel Project Env `SLACK_WEBHOOK_URL` (Production + Preview)  
+   - Also add the same value as GitHub Actions secret `SLACK_WEBHOOK_URL`
+
+2. **Vercel webhook**  
+   - Vercel Team → Settings → Webhooks → Create  
+   - URL: `https://cdu-zornheim.vercel.app/api/webhooks/vercel`  
+   - Events: **Deployment Succeeded**  
+   - Project: `cdu-zornheim`  
+   - Copy secret → Vercel Env `VERCEL_WEBHOOK_SECRET` (Production)  
+   - Or: `VERCEL_TOKEN=… npx tsx scripts/setup-vercel-slack-webhook.ts`
+
+3. **Cursor Cloud Agents ↔ Slack** (agent updates in the same channel)  
+   - [Cursor Integrations](https://www.cursor.com/dashboard/integrations) → Connect Slack (`airbitgruppe`)  
+   - In the channel: `/invite @Cursor` then `@Cursor settings` (default repo `dknussmann/cdu-zornheim`)  
+   - Optional per-run: `@Cursor channel=#your-channel …`
 
 ### Do not
 

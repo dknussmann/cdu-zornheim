@@ -1,0 +1,120 @@
+name: Notify Slack on Vercel Preview
+
+# Parallel path to the Vercel webhook at /api/webhooks/vercel.
+# Fires when GitHub receives a successful deployment_status from Vercel.
+#
+# Repo secrets (one of):
+#   SLACK_WEBHOOK_URL  – Incoming Webhook for channel C0BM6R2K10E
+#   SLACK_BOT_TOKEN    – Bot token; posts to C0BM6R2K10E
+
+on:
+  deployment_status:
+
+jobs:
+  slack-preview:
+    if: >
+      github.event.deployment_status.state == 'success' &&
+      github.event.deployment_status.environment != 'Production' &&
+      github.event.deployment_status.environment != 'production'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: read
+      pull-requests: read
+    steps:
+      - name: Build feature summary and notify Slack
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_PREVIEW_CHANNEL_ID: ${{ secrets.SLACK_PREVIEW_CHANNEL_ID }}
+          PREVIEW_URL: ${{ github.event.deployment_status.target_url }}
+          REF: ${{ github.event.deployment.ref }}
+          SHA: ${{ github.event.deployment.sha }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${SLACK_WEBHOOK_URL:-}" ] && [ -z "${SLACK_BOT_TOKEN:-}" ]; then
+            echo "Missing SLACK_WEBHOOK_URL or SLACK_BOT_TOKEN secret – skipping."
+            exit 0
+          fi
+
+          if [ -z "${PREVIEW_URL:-}" ]; then
+            echo "No preview URL on deployment_status – skipping."
+            exit 0
+          fi
+
+          COMMIT_MSG=$(gh api "repos/${REPO}/commits/${SHA}" --jq '.commit.message' | head -n 1)
+          PR_JSON=$(gh api "repos/${REPO}/commits/${SHA}/pulls" --jq '.[0] // empty' 2>/dev/null || true)
+          PR_TITLE=$(printf '%s' "$PR_JSON" | jq -r '.title // empty')
+          PR_URL=$(printf '%s' "$PR_JSON" | jq -r '.html_url // empty')
+          PR_NUMBER=$(printf '%s' "$PR_JSON" | jq -r '.number // empty')
+
+          if [ -n "$PR_TITLE" ]; then
+            SUMMARY="$PR_TITLE"
+          else
+            SUMMARY="$COMMIT_MSG"
+          fi
+
+          PR_LINE=""
+          if [ -n "$PR_URL" ]; then
+            PR_LINE="PR: <${PR_URL}|#${PR_NUMBER}>"
+          fi
+
+          jq -n \
+            --arg summary "$SUMMARY" \
+            --arg preview "$PREVIEW_URL" \
+            --arg ref "$REF" \
+            --arg repo "$REPO" \
+            --arg pr_line "$PR_LINE" \
+            '{
+              text: ("Preview ready: " + $summary + " — " + $preview),
+              blocks: [
+                {
+                  type: "header",
+                  text: { type: "plain_text", text: "Vercel Preview ready", emoji: true }
+                },
+                {
+                  type: "section",
+                  text: {
+                    type: "mrkdwn",
+                    text: (
+                      "*" + $repo + "*\n" +
+                      $summary + "\n" +
+                      "Branch: `" + $ref + "`\n" +
+                      "Preview: <" + $preview + "|" + $preview + ">" +
+                      (if $pr_line == "" then "" else ("\n" + $pr_line) end)
+                    )
+                  }
+                },
+                {
+                  type: "actions",
+                  elements: [
+                    {
+                      type: "button",
+                      text: { type: "plain_text", text: "Open Preview", emoji: true },
+                      url: $preview,
+                      style: "primary"
+                    }
+                  ]
+                }
+              ]
+            }' > /tmp/slack.json
+
+          if [ -n "${SLACK_WEBHOOK_URL:-}" ]; then
+            curl -sS -X POST -H 'Content-Type: application/json' \
+              --data @/tmp/slack.json "$SLACK_WEBHOOK_URL"
+            echo
+            echo "Posted via Incoming Webhook."
+          else
+            CHANNEL="${SLACK_PREVIEW_CHANNEL_ID:-C0BM6R2K10E}"
+            jq --arg channel "$CHANNEL" '. + {channel: $channel}' /tmp/slack.json > /tmp/slack-bot.json
+            curl -sS -X POST \
+              -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
+              -H 'Content-Type: application/json; charset=utf-8' \
+              --data @/tmp/slack-bot.json \
+              https://slack.com/api/chat.postMessage | tee /tmp/slack-res.json
+            jq -e '.ok == true' /tmp/slack-res.json
+            echo "Posted via Slack Bot to $CHANNEL."
+          fi
