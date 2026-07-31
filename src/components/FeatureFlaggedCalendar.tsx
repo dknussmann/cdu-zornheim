@@ -44,7 +44,7 @@ export function FeatureFlaggedCalendar({ events }: { events: Event[] }) {
     return (
       <div
         id="termine"
-        className="scroll-mt-24 rounded-xl border border-[color:var(--cdu-blue)]/10 bg-white p-6 text-[color:var(--cdu-blue)]"
+        className="scroll-mt-24 bg-white p-6 text-[color:var(--cdu-blue)]"
         aria-busy="true"
       >
         Kalender wird geladen…

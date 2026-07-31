@@ -25,14 +25,25 @@ export default async function HomePage() {
 
       <StickyHero isSignedIn={admin} />
 
-      <main id="inhalt" className="mx-auto w-full max-w-2xl flex-1 space-y-10 px-4 py-10 sm:px-6">
-        <section id="neuigkeiten" aria-labelledby="feed-heading" className="scroll-mt-20 space-y-5">
+      <main
+        id="inhalt"
+        className="mx-auto w-full max-w-2xl flex-1 space-y-14 px-4 py-12 sm:px-6"
+      >
+        <section
+          id="neuigkeiten"
+          aria-labelledby="feed-heading"
+          className="scroll-mt-20 space-y-5"
+        >
           <div>
-            <h2 id="feed-heading" className="font-display text-3xl text-[color:var(--cdu-blue)]">
+            <p className="section-kicker">Aktuelles</p>
+            <h2
+              id="feed-heading"
+              className="font-headline mt-2 text-3xl text-[color:var(--cdu-blue)] sm:text-4xl"
+            >
               Neuigkeiten
             </h2>
-            <p className="mt-1 text-[color:var(--cdu-blue)]/80">
-              Aktuelle Beiträge aus dem Ortsverband – mobil und übersichtlich.
+            <p className="mt-2 font-display text-[color:var(--cdu-blue)]/80">
+              Beiträge aus dem Ortsverband – mobil und übersichtlich.
             </p>
           </div>
 
@@ -47,10 +58,16 @@ export default async function HomePage() {
         </div>
       </main>
 
-      <footer className="mt-auto border-t border-[color:var(--cdu-blue)]/10 bg-white/70">
-        <div className="mx-auto flex max-w-2xl flex-col gap-2 px-4 py-8 text-sm text-[color:var(--cdu-blue)] sm:px-6">
-          <p className="font-semibold">CDU Ortsverband Zornheim</p>
-          <p>© {new Date().getFullYear()} CDU Zornheim</p>
+      <footer className="mt-auto border-t border-[color:var(--cdu-blue)]/10 bg-[color:var(--cdu-blue)] text-white">
+        <div className="mx-auto flex max-w-2xl flex-col gap-3 px-4 py-10 sm:px-6">
+          <div className="cdu-bogen-bar" aria-hidden="true" />
+          <p className="font-headline text-xl tracking-tight">CDU Zornheim</p>
+          <p className="font-display text-sm text-white/80">
+            Ortsverband der Christlich Demokratischen Union Deutschlands
+          </p>
+          <p className="text-sm text-white/65">
+            © {new Date().getFullYear()} CDU Ortsverband Zornheim
+          </p>
         </div>
       </footer>
     </>
