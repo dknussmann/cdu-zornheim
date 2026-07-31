@@ -34,7 +34,6 @@ yarn-error.log*
 
 # local ML / one-off artifacts
 scripts/models/
-!.env.example
 
 # vercel
 .vercel
@@ -42,8 +41,3 @@ scripts/models/
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# local tooling
-.cursor/
-AGENTS.md
-CLAUDE.md
