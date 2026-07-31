@@ -14,23 +14,20 @@ function formatDate(date: Date) {
 export function PostFeed({ posts }: { posts: Post[] }) {
   if (posts.length === 0) {
     return (
-      <p className="rounded-xl border border-dashed border-[color:var(--cdu-blue)]/25 bg-white/70 p-6 text-[color:var(--cdu-blue)]">
+      <p className="border border-dashed border-[color:var(--cdu-blue)]/25 bg-white/80 p-6 text-[color:var(--cdu-blue)]">
         Noch keine Beiträge – bald gibt es hier Neuigkeiten aus dem Ortsverband.
       </p>
     );
   }
 
   return (
-    <ol className="space-y-5" aria-label="Beitragsverlauf">
+    <ol className="space-y-6" aria-label="Beitragsverlauf">
       {posts.map((post) => (
-        <li
-          key={post.id}
-          className="overflow-hidden rounded-xl border border-[color:var(--cdu-blue)]/10 bg-white shadow-sm"
-        >
+        <li key={post.id} className="overflow-hidden bg-white">
           <article aria-labelledby={`post-${post.id}-title`}>
-            <header className="flex items-center gap-3 border-b border-[color:var(--cdu-blue)]/8 px-4 py-3 sm:px-5">
+            <header className="flex items-center gap-3 border-b border-[color:var(--cdu-teal)]/25 px-4 py-3 sm:px-5">
               <div
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-[color:var(--cdu-teal)] font-display text-sm font-bold text-[color:var(--cdu-blue)]"
+                className="flex h-10 w-10 items-center justify-center bg-[color:var(--cdu-teal)] font-headline text-xs tracking-tight text-white"
                 aria-hidden="true"
               >
                 CDU
@@ -38,7 +35,7 @@ export function PostFeed({ posts }: { posts: Post[] }) {
               <div className="min-w-0 flex-1">
                 <h3
                   id={`post-${post.id}-title`}
-                  className="font-semibold text-[color:var(--cdu-blue)]"
+                  className="font-bold text-[color:var(--cdu-blue)]"
                 >
                   CDU Zornheim
                 </h3>
@@ -55,7 +52,7 @@ export function PostFeed({ posts }: { posts: Post[] }) {
                 {post.body}
               </p>
               {post.imageUrl ? (
-                <figure className="overflow-hidden rounded-lg bg-[color:var(--cdu-surface)]">
+                <figure className="overflow-hidden bg-[color:var(--cdu-surface)]">
                   <Image
                     src={post.imageUrl}
                     alt={post.imageAlt || "Beitragsbild"}

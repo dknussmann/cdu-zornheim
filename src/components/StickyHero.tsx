@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { CduWordmark } from "@/components/CduWordmark";
 import { CoatOfArms } from "@/components/CoatOfArms";
 import { SiteHeaderNav } from "@/components/SiteHeaderNav";
 
@@ -36,8 +38,6 @@ export function StickyHero({ isSignedIn }: StickyHeroProps) {
       const start = startRef.current;
       if (!start) return;
       const rect = start.getBoundingClientRect();
-      // Document center → equals viewport center when scrollY is 0.
-      // We keep this as the fixed path start so scrolling never drags it off-screen.
       originRef.current = {
         x: rect.left + window.scrollX + rect.width / 2,
         y: rect.top + window.scrollY + rect.height / 2,
@@ -70,10 +70,8 @@ export function StickyHero({ isSignedIn }: StickyHeroProps) {
       const size = origin.size + (endSize - origin.size) * progress;
       const height = size * ASPECT;
 
-      // Straight line in viewport space: fixed hero origin → sticky header slot.
-      // origin.x/y are scroll-0 viewport coords (document coords with scrollX≈0).
       const startCenterX = origin.x - window.scrollX;
-      const startCenterY = origin.y; // fixed; does not move with page scroll
+      const startCenterY = origin.y;
       const endCenterX = endRect.left + endRect.width / 2;
       const endCenterY = endRect.top + endRect.height / 2;
 
@@ -81,8 +79,6 @@ export function StickyHero({ isSignedIn }: StickyHeroProps) {
       const centerY = startCenterY + (endCenterY - startCenterY) * progress;
 
       const flyerX = centerX - size / 2;
-      // Shrink can push the sprite top above the line endpoints — clamp to app top
-      // and never above the sticky target once we are landing.
       const unclampedTop = centerY - height / 2;
       const flyerY = Math.max(0, unclampedTop);
 
@@ -143,31 +139,42 @@ export function StickyHero({ isSignedIn }: StickyHeroProps) {
       </div>
 
       <header ref={heroRef} className="hero-shell -mt-[3.75rem] pt-[3.75rem]">
-        <div className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-4 pb-16 pt-4 sm:px-6 lg:px-8">
-          <div className="flex flex-1 flex-col items-center justify-center gap-8 py-10 text-center sm:py-14">
+        <div className="hero-media" aria-hidden="true">
+          <Image
+            src="/images/cdu-gruppe.jpg"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[center_30%]"
+          />
+        </div>
+
+        <div className="hero-content mx-auto flex w-full max-w-5xl flex-col gap-8 px-4 pb-16 pt-4 sm:px-6 lg:px-8">
+          <div className="flex flex-1 flex-col items-center justify-center gap-8 py-10 text-center sm:py-16">
             <div
               ref={startRef}
-              className="hero-fade-in flex aspect-[1676/1952] h-auto w-[min(58vw,280px)] items-center justify-center"
+              className="hero-fade-in flex aspect-[1676/1952] h-auto w-[min(52vw,240px)] items-center justify-center"
               aria-hidden="true"
             />
-            <div className="max-w-2xl">
-              <p className="hero-fade-in-delay font-display text-4xl leading-tight tracking-tight text-white sm:text-6xl">
-                CDU Zornheim
+            <div className="max-w-3xl">
+              <div className="hero-fade-in-delay flex justify-center">
+                <CduWordmark
+                  variant="on-dark"
+                  size="hero"
+                  regional="Ortsverband Zornheim"
+                  className="items-center text-center [&_.cdu-bogen]:bogen-reveal"
+                />
+              </div>
+              <p className="hero-fade-in-delay-2 mx-auto mt-6 max-w-xl font-display text-lg text-white/95 sm:text-xl">
+                Nah an Ort und Menschen – Neuigkeiten, Termine und Mitmachen für
+                unsere Gemeinde.
               </p>
-              <p className="hero-fade-in-delay-2 mx-auto mt-4 max-w-xl text-base text-white/90 sm:text-lg">
-                Nah an Ort und Menschen – Neuigkeiten, Termine und Mitmachen für unsere Gemeinde.
-              </p>
-              <div className="hero-fade-in-delay-2 mt-7 flex flex-wrap items-center justify-center gap-3">
-                <a
-                  href="#neuigkeiten"
-                  className="inline-flex min-h-11 items-center justify-center rounded-lg bg-[color:var(--cdu-gold)] px-5 font-semibold text-[color:var(--cdu-blue)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                >
+              <div className="hero-fade-in-delay-3 mt-8 flex flex-wrap items-center justify-center gap-3">
+                <a href="#neuigkeiten" className="btn-primary">
                   Aktuelles lesen
                 </a>
-                <a
-                  href="#mitmachen"
-                  className="inline-flex min-h-11 items-center justify-center rounded-lg border border-white/50 px-5 font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                >
+                <a href="#mitmachen" className="btn-secondary">
                   Mitmachen
                 </a>
               </div>
