@@ -5,11 +5,13 @@ export function Mitmachen() {
       className="relative overflow-hidden bg-[color:var(--cdu-teal)] px-5 py-8 text-[color:var(--cdu-ink)] sm:px-7 sm:py-10"
     >
       <div
-        className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 opacity-30"
+        className="pointer-events-none absolute inset-y-0 right-0 w-1.5 sm:w-2"
+        style={{
+          background:
+            "linear-gradient(to bottom, var(--cdu-ink) 0 33%, var(--cdu-red) 33% 66%, var(--cdu-gold) 66% 100%)",
+        }}
         aria-hidden="true"
-      >
-        <span className="cdu-bogen h-full w-full block scale-150" />
-      </div>
+      />
       <p className="section-kicker !text-[color:var(--cdu-ink)]">Engagement</p>
       <h2
         id="mitmachen-heading"
