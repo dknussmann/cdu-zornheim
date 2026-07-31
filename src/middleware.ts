@@ -1,23 +1,11 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { clerkMiddleware } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 
-const isProtectedRoute = createRouteMatcher(["/admin(.*)"]);
 const hasClerk = Boolean(process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY);
 
-const clerkHandler = clerkMiddleware(async (auth, req) => {
-  if (isProtectedRoute(req)) {
-    await auth.protect();
-  }
-});
-
-export default function middleware(req: NextRequest, event: unknown) {
-  if (!hasClerk) {
-    return NextResponse.next();
-  }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (clerkHandler as any)(req, event);
-}
+export default hasClerk
+  ? clerkMiddleware()
+  : () => NextResponse.next();
 
 export const config = {
   matcher: [

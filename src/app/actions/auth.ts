@@ -22,7 +22,7 @@ export async function requestMagicLogin(
   return {
     ok: true,
     message:
-      "Anmeldelink erstellt. Öffnen Sie den Link, um sich anzumelden (gültig 20 Minuten).",
+      "Anmeldelink erstellt. Öffnen Sie den Link unten, um sich anzumelden (gültig 20 Minuten).",
     magicUrl: result.magicUrl,
   };
 }

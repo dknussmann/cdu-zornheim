@@ -8,7 +8,7 @@ Website des CDU Ortsverbands Zornheim – Neuigkeiten, Termine und Mitmachen.
 
 - Next.js (App Router) + Tailwind
 - Neon Postgres + Drizzle
-- E-Mail-Login für Admins (Magic Link; optional Clerk)
+- Admin-Login (Magic Link; optional Clerk)
 - Vercel Blob (Beitragsbilder)
 - LaunchDarkly Flag `show-event-calendar`
 
@@ -17,7 +17,7 @@ Website des CDU Ortsverbands Zornheim – Neuigkeiten, Termine und Mitmachen.
 ```bash
 npm install
 cp .env.example .env.local
-# Werte setzen
+# Werte setzen – in Production: ADMIN_SESSION_SECRET und ADMIN_EMAILS
 npm run db:push
 npm run db:seed
 npm run dev
@@ -26,7 +26,7 @@ npm run dev
 ## Admin-Login
 
 1. `/sign-in` öffnen
-2. E-Mail eingeben (optional einschränken via `ADMIN_EMAILS`)
+2. E-Mail eingeben (in Production via `ADMIN_EMAILS` einschränken)
 3. Anmeldelink öffnen – Composer erscheint oben im Feed
 
 Mit Clerk: Marketplace-Integration in Vercel hinzufügen, Env pullen und neu deployen. Clerk ersetzt den Magic-Link-Flow automatisch.

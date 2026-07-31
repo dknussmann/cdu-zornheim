@@ -11,7 +11,7 @@ export default function SignInPage() {
           Anmeldung für Administratorinnen und Administratoren
         </h1>
         <p className="text-center text-sm text-[color:var(--cdu-blue)]/80">
-          Melden Sie sich per E-Mail-Link an, um Beiträge zu veröffentlichen.
+          Melden Sie sich an, um Beiträge zu veröffentlichen.
         </p>
         {hasClerk ? <SignIn /> : <MagicLoginForm />}
       </div>

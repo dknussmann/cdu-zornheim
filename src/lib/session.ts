@@ -8,12 +8,18 @@ const SESSION_COOKIE = "cdu_admin_session";
 const SESSION_DAYS = 14;
 
 function sessionSecret() {
-  return (
+  const secret =
     process.env.ADMIN_SESSION_SECRET ||
     process.env.CLERK_SECRET_KEY ||
-    process.env.BLOB_READ_WRITE_TOKEN ||
-    "dev-only-change-me"
-  );
+    process.env.BLOB_READ_WRITE_TOKEN;
+
+  if (secret) return secret;
+
+  if (process.env.NODE_ENV === "production") {
+    throw new Error("ADMIN_SESSION_SECRET fehlt in Production.");
+  }
+
+  return "dev-only-change-me";
 }
 
 function sign(value: string) {
@@ -32,7 +38,10 @@ export function isEmailAllowed(email: string) {
     .split(",")
     .map((e) => e.trim().toLowerCase())
     .filter(Boolean);
-  if (allowed.length === 0) return true;
+  if (allowed.length === 0) {
+    // Open allowlist only in local/dev; production must set ADMIN_EMAILS.
+    return process.env.NODE_ENV !== "production";
+  }
   return allowed.includes(email.toLowerCase());
 }
 

@@ -29,7 +29,7 @@ export function MagicLoginForm() {
         disabled={pending}
         className="inline-flex min-h-11 w-full items-center justify-center rounded-lg bg-[color:var(--cdu-blue)] px-4 font-semibold text-white disabled:opacity-60"
       >
-        {pending ? "Link wird erstellt…" : "Anmeldelink per E-Mail anfordern"}
+        {pending ? "Link wird erstellt…" : "Anmeldelink erstellen"}
       </button>
       <p role="status" aria-live="polite" className="text-sm text-[color:var(--cdu-blue)]">
         {state.message}

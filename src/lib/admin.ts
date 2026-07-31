@@ -26,7 +26,11 @@ export async function requireAdmin() {
       .map((e) => e.trim().toLowerCase())
       .filter(Boolean);
 
-    if (allowed.length > 0 && !allowed.includes(email.toLowerCase())) {
+    if (allowed.length === 0) {
+      if (process.env.NODE_ENV === "production") {
+        return { ok: false as const, reason: "forbidden" as const, email };
+      }
+    } else if (!allowed.includes(email.toLowerCase())) {
       return { ok: false as const, reason: "forbidden" as const, email };
     }
 

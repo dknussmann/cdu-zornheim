@@ -9,13 +9,7 @@ function CalendarGate({ events }: { events: Event[] }) {
   const flags = useFlags();
   const show = Boolean(flags["show-event-calendar"]);
 
-  if (!show) {
-    return (
-      <div id="termine" className="scroll-mt-24 sr-only" aria-hidden="true">
-        Kalender per Feature-Flag deaktiviert
-      </div>
-    );
-  }
+  if (!show) return null;
 
   return (
     <div id="termine" className="scroll-mt-24">
@@ -56,7 +50,6 @@ export function FeatureFlaggedCalendar({ events }: { events: Event[] }) {
     <LDProvider
       clientSideID={clientSideId}
       context={{ kind: "user", key: "anonymous-visitor", anonymous: true }}
-      options={{ bootstrap: "localStorage" }}
       timeout={5}
     >
       <CalendarGate events={events} />

@@ -32,9 +32,6 @@ yarn-error.log*
 .env*
 !.env.example
 
-# local ML / one-off artifacts
-scripts/models/
-
 # vercel
 .vercel
 
