@@ -55,6 +55,15 @@ npm run db:seed        # seed sample data (needs DATABASE_URL)
 | Clerk keys | Only if testing Clerk login |
 | `NEXT_PUBLIC_LAUNCHDARKLY_CLIENT_SIDE_ID` | Calendar feature flag (without it, calendar stays visible) |
 
+### Provisioning a dev database
+
+A Neon project named `cdu-zornheim` already exists in the connected Neon org. For autonomous work, create/use an **isolated branch** off it (do not run `db:push`/`db:seed`/writes against the parent/production branch) and point `DATABASE_URL` at that branch in `.env.local`. `src/db/index.ts` instantiates the client at import and throws if `DATABASE_URL` is unset, so the app cannot render without a reachable Postgres. A branch copies existing schema + data, so `db:push` may report "No changes" and `db:seed` may skip (data already present) — that is expected, not an error.
+
+### Known caveats (current code, unmerged fixes aside)
+
+- `npm run lint` currently fails on a clean checkout with 2 pre-existing errors (`FeatureFlaggedCalendar.tsx` set-state-in-effect, `SiteHeaderNav.tsx` html-link-for-pages). Not an environment problem.
+- **Magic-link admin login is broken on this Next.js version.** `/sign-in/verify` is a Server Component that sets the session cookie during render, which throws `Cookies can only be modified in a Server Action or Route Handler` (`src/lib/session.ts` `consumeMagicToken`). Also, `getSessionEmail` splits the cookie on `.`, so sessions for emails containing a dot never validate. To exercise admin-only UI (the "Neuen Beitrag verfassen" composer / posting) in dev without editing code, inject a valid `cdu_admin_session` cookie: value is `` `${email}|${Date.now()}.${sig}` `` where `sig = sha256(`${email}|${ts}.${ADMIN_SESSION_SECRET}`)` hex, first 32 chars; use a dot-free email such as `admin@localhost`. The composer → `createPost` server action → Neon insert → feed render path works once that cookie is set.
+
 ### Verify changes
 
 1. `npm run lint`
