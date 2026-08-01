@@ -29,7 +29,9 @@ export function FeatureFlaggedCalendar({ events }: { events: Event[] }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    setReady(true);
+    // Mark component as mounted on the client
+    const timer = setTimeout(() => setReady(true), 0);
+    return () => clearTimeout(timer);
   }, []);
 
   if (!clientSideId) {

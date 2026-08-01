@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Show, SignInButton, SignOutButton, UserButton } from "@clerk/nextjs";
 import { logoutAction } from "@/app/actions/auth";
 
@@ -25,18 +26,36 @@ export function SiteHeaderNav({
         CDU Zornheim
       </p>
       <div className="flex items-center gap-2 sm:gap-3">
-        <a
-          href="#neuigkeiten"
+        <Link
+          href="/"
           className="hidden min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-white/95 underline-offset-4 hover:underline sm:inline-flex"
         >
-          Neuigkeiten
-        </a>
-        <a
-          href="#termine"
+          Startseite
+        </Link>
+        <Link
+          href="/ueber-uns"
           className="hidden min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-white/95 underline-offset-4 hover:underline sm:inline-flex"
         >
-          Termine
-        </a>
+          Über uns
+        </Link>
+        <Link
+          href="/archiv"
+          className="hidden min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-white/95 underline-offset-4 hover:underline lg:inline-flex"
+        >
+          Archiv
+        </Link>
+        <Link
+          href="/spenden"
+          className="hidden min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-white/95 underline-offset-4 hover:underline lg:inline-flex"
+        >
+          Spenden
+        </Link>
+        <Link
+          href="/kontakt"
+          className="hidden min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-white/95 underline-offset-4 hover:underline lg:inline-flex"
+        >
+          Kontakt
+        </Link>
         {hasClerk ? (
           <>
             <Show when="signed-out">
@@ -73,12 +92,12 @@ export function SiteHeaderNav({
             </button>
           </form>
         ) : (
-          <a
+          <Link
             href="/sign-in"
             className="min-h-11 inline-flex items-center rounded-lg bg-white px-4 text-sm font-semibold text-[color:var(--cdu-blue)]"
           >
             Anmelden
-          </a>
+          </Link>
         )}
       </div>
     </nav>
