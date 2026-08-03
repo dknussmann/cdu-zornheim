@@ -40,19 +40,19 @@ export function SiteHeaderNav({
         </Link>
         <Link
           href="/archiv"
-          className="hidden min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-white/95 underline-offset-4 hover:underline lg:inline-flex"
+          className="hidden min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-white/95 underline-offset-4 hover:underline sm:inline-flex"
         >
           Archiv
         </Link>
         <Link
           href="/spenden"
-          className="hidden min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-white/95 underline-offset-4 hover:underline lg:inline-flex"
+          className="hidden min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-white/95 underline-offset-4 hover:underline sm:inline-flex"
         >
           Spenden
         </Link>
         <Link
           href="/kontakt"
-          className="hidden min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-white/95 underline-offset-4 hover:underline lg:inline-flex"
+          className="hidden min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-white/95 underline-offset-4 hover:underline sm:inline-flex"
         >
           Kontakt
         </Link>

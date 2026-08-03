@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { desc } from "drizzle-orm";
 import { FeatureFlaggedCalendar } from "@/components/FeatureFlaggedCalendar";
 import { Mitmachen } from "@/components/Mitmachen";
@@ -41,12 +42,12 @@ export default async function HomePage() {
           
           {allPosts.length > 3 && (
             <div className="flex justify-center pt-2">
-              <a
+              <Link
                 href="/archiv"
                 className="inline-flex min-h-11 items-center justify-center rounded-lg border border-[color:var(--cdu-blue)]/30 px-5 font-semibold text-[color:var(--cdu-blue)] hover:bg-[color:var(--cdu-blue)]/5"
               >
                 Alle Neuigkeiten anzeigen
-              </a>
+              </Link>
             </div>
           )}
         </section>
@@ -67,12 +68,12 @@ export default async function HomePage() {
               und Einblicken in die kommunalpolitische Arbeit.
             </p>
             <div className="mt-4 flex gap-3">
-              <a
+              <Link
                 href="/archiv#zornheimer-bote"
                 className="inline-flex min-h-11 items-center justify-center rounded-lg bg-[color:var(--cdu-blue)] px-5 font-semibold text-white hover:bg-[color:var(--cdu-blue)]/90"
               >
                 Zum Archiv
-              </a>
+              </Link>
             </div>
           </div>
         </section>

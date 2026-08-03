@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { CoatOfArms } from "@/components/CoatOfArms";
 import { SiteHeaderNav } from "@/components/SiteHeaderNav";
 
@@ -158,18 +159,18 @@ export function StickyHero({ isSignedIn }: StickyHeroProps) {
                 Nah an Ort und Menschen – Neuigkeiten, Termine und Mitmachen für unsere Gemeinde.
               </p>
               <div className="hero-fade-in-delay-2 mt-7 flex flex-wrap items-center justify-center gap-3">
-                <a
-                  href="#neuigkeiten"
+                <Link
+                  href="/#aktuelles"
                   className="inline-flex min-h-11 items-center justify-center rounded-lg bg-[color:var(--cdu-gold)] px-5 font-semibold text-[color:var(--cdu-blue)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 >
                   Aktuelles lesen
-                </a>
-                <a
-                  href="#mitmachen"
+                </Link>
+                <Link
+                  href="/kontakt"
                   className="inline-flex min-h-11 items-center justify-center rounded-lg border border-white/50 px-5 font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 >
                   Mitmachen
-                </a>
+                </Link>
               </div>
             </div>
           </div>

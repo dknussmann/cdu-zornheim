@@ -1,4 +1,4 @@
-import { desc } from "drizzle-orm";
+import { desc, lt } from "drizzle-orm";
 import { StickyHero } from "@/components/StickyHero";
 import { PostFeed } from "@/components/PostFeed";
 import { db } from "@/db";
@@ -8,9 +8,14 @@ import { isAdmin } from "@/lib/admin";
 export const dynamic = "force-dynamic";
 
 export default async function ArchivPage() {
-  const [allPosts, allEvents, admin] = await Promise.all([
+  const now = new Date();
+  const [allPosts, pastEvents, admin] = await Promise.all([
     db.select().from(posts).orderBy(desc(posts.createdAt)),
-    db.select().from(events).orderBy(desc(events.startsAt)),
+    db
+      .select()
+      .from(events)
+      .where(lt(events.startsAt, now))
+      .orderBy(desc(events.startsAt)),
     isAdmin(),
   ]);
 
@@ -44,7 +49,7 @@ export default async function ArchivPage() {
           <PostFeed posts={allPosts} />
         </section>
 
-        {allEvents.length > 0 && (
+        {pastEvents.length > 0 && (
           <section id="vergangene-events" className="space-y-5">
             <div>
               <h2 className="font-display text-2xl text-[color:var(--cdu-blue)]">
@@ -55,7 +60,7 @@ export default async function ArchivPage() {
               </p>
             </div>
             <div className="space-y-4">
-              {allEvents.map((event) => (
+              {pastEvents.map((event) => (
                 <article
                   key={event.id}
                   className="rounded-xl border border-[color:var(--cdu-blue)]/10 bg-white/70 p-5"

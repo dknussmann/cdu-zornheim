@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { StickyHero } from "@/components/StickyHero";
 import { isAdmin } from "@/lib/admin";
 
@@ -71,12 +72,12 @@ export default async function SpendenPage() {
               Möglichkeiten, die CDU Zornheim zu unterstützen.
             </p>
             <div className="pt-2">
-              <a
+              <Link
                 href="/kontakt"
                 className="inline-flex min-h-11 items-center justify-center rounded-lg bg-[color:var(--cdu-blue)] px-5 font-semibold text-white hover:bg-[color:var(--cdu-blue)]/90"
               >
                 Kontaktformular
-              </a>
+              </Link>
             </div>
           </div>
         </section>
