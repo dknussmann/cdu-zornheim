@@ -1,5 +1,12 @@
 import Link from "next/link";
 import { StickyHero } from "@/components/StickyHero";
+import {
+  beigeordnete,
+  cduFraktion,
+  gemeinde,
+  ortsbuergermeister,
+  ratsverteilung,
+} from "@/data/zornheim";
 import { isAdmin } from "@/lib/admin";
 
 export const dynamic = "force-dynamic";
@@ -21,7 +28,8 @@ export default async function UeberUnsPage() {
             Über uns
           </h1>
           <p className="text-lg text-[color:var(--cdu-blue)]/80">
-            Die CDU Zornheim stellt sich vor – engagiert für unsere Gemeinde.
+            Die CDU Zornheim stellt sich vor – engagiert für unsere Gemeinde in
+            der Verbandsgemeinde {gemeinde.verbandsgemeinde}.
           </p>
         </section>
 
@@ -31,55 +39,127 @@ export default async function UeberUnsPage() {
           </h2>
           <div className="space-y-3 text-[color:var(--cdu-blue)]/90">
             <p>
-              Die CDU Zornheim ist der Ortsverband der Christlich Demokratischen Union
-              in unserer Gemeinde. Wir setzen uns für die Belange unserer Bürgerinnen
-              und Bürger ein und gestalten die Zukunft Zornheims aktiv mit.
+              Die CDU Zornheim ist der Ortsverband der Christlich Demokratischen
+              Union in der Ortsgemeinde Zornheim ({gemeinde.inhabitants},
+              Landkreis {gemeinde.landkreis}). Wir gestalten Kommunalpolitik vor
+              Ort – nah an den Menschen, mit christlich-demokratischen Werten und
+              pragmatischen Lösungen für Wohnen, Infrastruktur, Familie und
+              Zusammenleben.
             </p>
             <p>
-              Mit einem engagierten Team arbeiten wir daran, unsere Gemeinde
-              lebenswert zu erhalten und weiterzuentwickeln. Dabei stehen christliche
-              Werte, Bürgernähe und praktische Lösungen im Mittelpunkt unserer Arbeit.
+              Bei der Kommunalwahl {ratsverteilung.electionYear} hat die CDU{" "}
+              {ratsverteilung.cdu} von {ratsverteilung.total} Sitzen im
+              Ortsgemeinderat gewonnen und stellt damit weiterhin die stärkste
+              Fraktion (SPD {ratsverteilung.spd}, FWG {ratsverteilung.fwg}).
             </p>
           </div>
         </section>
 
         <section className="space-y-4">
           <h2 className="font-display text-2xl text-[color:var(--cdu-blue)]">
-            Vorstand
+            Ortsbürgermeister
           </h2>
           <div className="space-y-3 text-[color:var(--cdu-blue)]/90">
             <p>
-              Unser Vorstand setzt sich aus engagierten Mitgliedern zusammen, die
-              sich für die Belange unserer Gemeinde einsetzen. Die Vorstandsmitglieder
-              koordinieren die Arbeit des Ortsverbands und sind Ansprechpartner für
-              alle Bürgerinnen und Bürger.
+              <span className="font-semibold">{ortsbuergermeister.name}</span>{" "}
+              ({ortsbuergermeister.party}) ist seit{" "}
+              {ortsbuergermeister.tookOfficeOn} Ortsbürgermeister von Zornheim.
+              Bei der Direktwahl am {ortsbuergermeister.electedOn} wurde er mit{" "}
+              {ortsbuergermeister.voteShare} der Stimmen gewählt.
+            </p>
+            <p>
+              Er setzt die CDU-Kontinuität im Rathaus fort: Vor ihm amtierten{" "}
+              {ortsbuergermeister.predecessors
+                .map((p) => `${p.name} (${p.party}, ${p.note})`)
+                .join(" und ")}
+              .
+            </p>
+            <p className="text-sm text-[color:var(--cdu-blue)]/70">
+              Rathaus: {gemeinde.address.street}, {gemeinde.address.zip}{" "}
+              {gemeinde.address.city} · Tel. {gemeinde.address.phone}
             </p>
           </div>
         </section>
 
         <section className="space-y-4">
           <h2 className="font-display text-2xl text-[color:var(--cdu-blue)]">
-            Bürgermeister
+            Beigeordnete
+          </h2>
+          <ul className="space-y-3 text-[color:var(--cdu-blue)]/90">
+            {beigeordnete.map((person) => (
+              <li key={person.name}>
+                <span className="font-semibold">{person.name}</span>
+                <span className="text-[color:var(--cdu-blue)]/70">
+                  {" "}
+                  – {person.role}
+                  {person.portfolio ? `, ${person.portfolio}` : ""}
+                </span>
+                {"note" in person && person.note ? (
+                  <span className="block text-sm text-[color:var(--cdu-blue)]/65">
+                    {person.note}
+                  </span>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="space-y-4">
+          <h2 className="font-display text-2xl text-[color:var(--cdu-blue)]">
+            CDU-Fraktion im Gemeinderat
           </h2>
           <div className="space-y-3 text-[color:var(--cdu-blue)]/90">
             <p>
-              Die CDU Zornheim arbeitet eng mit der Gemeindeverwaltung zusammen,
-              um die bestmöglichen Ergebnisse für unsere Bürgerinnen und Bürger
-              zu erzielen.
+              Unsere Fraktion vertritt mit {cduFraktion.length} Mandaten die
+              Interessen der Bürgerinnen und Bürger im Ortsgemeinderat
+              (Wahlperiode ab {ratsverteilung.electionYear}):
+            </p>
+            <ul className="grid gap-2 sm:grid-cols-2">
+              {cduFraktion.map((name) => (
+                <li key={name} className="font-medium">
+                  {name}
+                </li>
+              ))}
+            </ul>
+            <p className="text-sm text-[color:var(--cdu-blue)]/70">
+              Quelle:{" "}
+              <a
+                href={gemeinde.sources.gemeindeorgane}
+                className="underline underline-offset-2 hover:text-[color:var(--cdu-blue)]"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Gemeindeorgane der Ortsgemeinde Zornheim
+              </a>
             </p>
           </div>
         </section>
 
         <section className="space-y-4">
           <h2 className="font-display text-2xl text-[color:var(--cdu-blue)]">
-            Fraktion im Gemeinderat
+            Vorstand des Ortsverbands
           </h2>
           <div className="space-y-3 text-[color:var(--cdu-blue)]/90">
             <p>
-              Unsere Fraktion im Gemeinderat vertritt die Interessen der Bürgerinnen
-              und Bürger Zornheims. Mit sachkundigen Entscheidungen und konstruktiven
-              Vorschlägen gestalten wir die kommunalpolitische Arbeit aktiv mit.
+              Der Vorstand des CDU-Ortsverbands Zornheim koordiniert die
+              Parteiarbeit vor Ort – Mitgliederversammlung, Wahlkampf,
+              Veranstaltungen und den Austausch mit der Fraktion. Eine
+              aktuelle, öffentlich gepflegte Vorstandsliste liegt online noch
+              nicht vor.
             </p>
+            <p>
+              Sie möchten wissen, wer derzeit im Vorstand aktiv ist, oder selbst
+              mitarbeiten? Melden Sie sich gerne über unser Kontaktformular –
+              wir bringen Sie mit dem Ortsverband zusammen.
+            </p>
+            <div className="pt-2">
+              <Link
+                href="/kontakt"
+                className="inline-flex min-h-11 items-center justify-center rounded-lg bg-[color:var(--cdu-blue)] px-5 font-semibold text-white hover:bg-[color:var(--cdu-blue)]/90"
+              >
+                Vorstand kontaktieren
+              </Link>
+            </div>
           </div>
         </section>
 
@@ -89,16 +169,17 @@ export default async function UeberUnsPage() {
           </h2>
           <div className="space-y-3 text-[color:var(--cdu-blue)]/90">
             <p>
-              Sie möchten sich engagieren und Teil unserer Gemeinschaft werden?
-              Wir freuen uns über jedes neue Mitglied, das mit uns die Zukunft
-              Zornheims gestalten möchte.
+              Sie möchten sich für Zornheim engagieren und Teil unserer
+              Gemeinschaft werden? Ob als Mitglied, Helferin oder Helfer bei
+              Aktionen oder mit Ideen für die Gemeinde – wir freuen uns über
+              Verstärkung.
             </p>
             <div className="pt-2">
               <Link
                 href="/kontakt"
-                className="inline-flex min-h-11 items-center justify-center rounded-lg bg-[color:var(--cdu-blue)] px-5 font-semibold text-white hover:bg-[color:var(--cdu-blue)]/90"
+                className="inline-flex min-h-11 items-center justify-center rounded-lg border border-[color:var(--cdu-blue)]/30 px-5 font-semibold text-[color:var(--cdu-blue)] hover:bg-[color:var(--cdu-blue)]/5"
               >
-                Kontakt aufnehmen
+                Mitglied werden / Kontakt
               </Link>
             </div>
           </div>

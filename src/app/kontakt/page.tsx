@@ -52,14 +52,17 @@ export default async function KontaktPage() {
           </h2>
           <div className="space-y-3 text-[color:var(--cdu-blue)]/90">
             <p>
-              <strong>Anschrift:</strong><br />
-              CDU Ortsverband Zornheim<br />
+              <strong>Gemeindeverwaltung (Rathaus):</strong>
+              <br />
+              Kirschgartenstraße 2
+              <br />
               55270 Zornheim
+              <br />
+              Tel. 06136 95294-0
             </p>
             <p>
-              Sie erreichen uns auch über die sozialen Medien oder besuchen Sie
-              uns bei einer unserer Veranstaltungen. Termine finden Sie auf unserer
-              Startseite.
+              Für Anliegen an den Ortsverband nutzen Sie bitte das Formular oben.
+              Termine und Neuigkeiten finden Sie auf der Startseite.
             </p>
           </div>
         </section>
