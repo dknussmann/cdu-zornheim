@@ -1,9 +1,13 @@
+import Link from "next/link";
 import { desc } from "drizzle-orm";
 import { FeatureFlaggedCalendar } from "@/components/FeatureFlaggedCalendar";
 import { Mitmachen } from "@/components/Mitmachen";
 import { PostComposer } from "@/components/PostComposer";
 import { PostFeed } from "@/components/PostFeed";
+import { SectionBanner } from "@/components/SectionBanner";
+import { SiteFooter } from "@/components/SiteFooter";
 import { StickyHero } from "@/components/StickyHero";
+import { ZornheimerBote } from "@/components/ZornheimerBote";
 import { db } from "@/db";
 import { events, posts } from "@/db/schema";
 import { isAdmin } from "@/lib/admin";
@@ -19,25 +23,44 @@ export default async function HomePage() {
 
   return (
     <>
-      <a href="#inhalt" className="skip-link">
-        Zum Inhalt springen
-      </a>
-
       <StickyHero isSignedIn={admin} />
 
-      <main id="inhalt" className="mx-auto w-full max-w-2xl flex-1 space-y-10 px-4 py-10 sm:px-6">
-        <section id="neuigkeiten" aria-labelledby="feed-heading" className="scroll-mt-20 space-y-5">
-          <div>
-            <h2 id="feed-heading" className="font-display text-3xl text-[color:var(--cdu-blue)]">
-              Neuigkeiten
-            </h2>
-            <p className="mt-1 text-[color:var(--cdu-blue)]/80">
-              Aktuelle Beiträge aus dem Ortsverband – mobil und übersichtlich.
-            </p>
-          </div>
+      <main
+        id="inhalt"
+        className="mx-auto w-full max-w-2xl flex-1 space-y-14 px-4 py-12 sm:px-6"
+      >
+        <section
+          id="aktuelles"
+          aria-labelledby="highlights-heading"
+          className="scroll-mt-20 space-y-5"
+        >
+          <SectionBanner
+            tone="dark"
+            kicker="Aktuelles"
+            title="Neuigkeiten"
+            titleId="highlights-heading"
+          >
+            Die wichtigsten Beiträge aus dem Ortsverband auf einen Blick.
+          </SectionBanner>
 
           {admin ? <PostComposer /> : null}
-          <PostFeed posts={allPosts} />
+          <PostFeed posts={allPosts.slice(0, 3)} />
+
+          {allPosts.length > 3 && (
+            <div className="flex justify-center pt-2">
+              <Link href="/archiv" className="btn-primary">
+                Alle Neuigkeiten anzeigen
+              </Link>
+            </div>
+          )}
+        </section>
+
+        <section
+          id="zornheimer-bote"
+          aria-labelledby="bote-heading"
+          className="scroll-mt-20"
+        >
+          <ZornheimerBote variant="home" />
         </section>
 
         <FeatureFlaggedCalendar events={allEvents} />
@@ -47,12 +70,7 @@ export default async function HomePage() {
         </div>
       </main>
 
-      <footer className="mt-auto border-t border-[color:var(--cdu-blue)]/10 bg-white/70">
-        <div className="mx-auto flex max-w-2xl flex-col gap-2 px-4 py-8 text-sm text-[color:var(--cdu-blue)] sm:px-6">
-          <p className="font-semibold">CDU Ortsverband Zornheim</p>
-          <p>© {new Date().getFullYear()} CDU Zornheim</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }

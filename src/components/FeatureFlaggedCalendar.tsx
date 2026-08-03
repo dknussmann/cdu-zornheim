@@ -29,7 +29,9 @@ export function FeatureFlaggedCalendar({ events }: { events: Event[] }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    setReady(true);
+    // Mark component as mounted on the client
+    const timer = setTimeout(() => setReady(true), 0);
+    return () => clearTimeout(timer);
   }, []);
 
   if (!clientSideId) {
@@ -44,7 +46,7 @@ export function FeatureFlaggedCalendar({ events }: { events: Event[] }) {
     return (
       <div
         id="termine"
-        className="scroll-mt-24 rounded-xl border border-[color:var(--cdu-blue)]/10 bg-white p-6 text-[color:var(--cdu-blue)]"
+        className="scroll-mt-24 border border-[color:var(--cdu-blue)]/10 bg-white p-6 text-[color:var(--cdu-blue)]"
         aria-busy="true"
       >
         Kalender wird geladen…

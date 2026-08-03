@@ -1,19 +1,21 @@
 import type { Metadata } from "next";
-import { Source_Sans_3, Source_Serif_4 } from "next/font/google";
+import { Inter, IBM_Plex_Serif } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { deDE } from "@clerk/localizations";
 import "./globals.css";
 
-const sourceSans = Source_Sans_3({
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
 });
 
-const sourceSerif = Source_Serif_4({
+const ibmPlexSerif = IBM_Plex_Serif({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -39,7 +41,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const body = (
-    <html lang="de" className={`${sourceSans.variable} ${sourceSerif.variable}`}>
+    <html lang="de" className={`${inter.variable} ${ibmPlexSerif.variable}`}>
       <body className="min-h-full flex flex-col antialiased">{children}</body>
     </html>
   );
