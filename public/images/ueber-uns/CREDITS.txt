@@ -1,0 +1,29 @@
+# Image credits for Über uns (stored under public/images/ueber-uns/)
+#
+# rathaus.jpg
+#   Source: Wikimedia Commons — File:Zornheim Rathaus 20101001.jpg
+#   Author: Rudolf Stricker
+#   License: Attribution (author-specified) / FoP Germany for architecture
+#   https://commons.wikimedia.org/wiki/File:Zornheim_Rathaus_20101001.jpg
+#
+# rathaus-detail.jpg
+#   Source: Wikimedia Commons — File:Rathaus Zornheim 1.JPG
+#   Author: Nixnubix
+#   License: CC BY-SA 4.0
+#   https://commons.wikimedia.org/wiki/File:Rathaus_Zornheim_1.JPG
+#
+# fachwerkhaus.jpg
+#   Source: Wikimedia Commons — File:Wlm2011 zornheim 1.jpg
+#   Author: Suitbert
+#   License: CC BY-SA 3.0
+#   https://commons.wikimedia.org/wiki/File:Wlm2011_zornheim_1.jpg
+#
+# ortschaft.jpg
+#   Source: Wikimedia Commons — File:Zornheim - Raiffeisenstraße, Kreuzung Nieder-Olmer-Straße.jpg
+#   Author: ManuelB701
+#   License: CC0 1.0
+#   https://commons.wikimedia.org/wiki/File:Zornheim_-_Raiffeisenstra%C3%9Fe,_Kreuzung_Nieder-Olmer-Stra%C3%9Fe.jpg
+#
+# gemeinschaft.jpg
+#   Existing site asset (public/images/cdu-gruppe.jpg), AI-upscaled with Real-ESRGAN x4
+#   then resized to 1920px for web delivery.

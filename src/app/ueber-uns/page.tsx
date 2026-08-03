@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { StickyHero } from "@/components/StickyHero";
 import {
@@ -11,6 +12,36 @@ import { isAdmin } from "@/lib/admin";
 
 export const dynamic = "force-dynamic";
 
+function Figure({
+  src,
+  alt,
+  caption,
+  priority = false,
+}: {
+  src: string;
+  alt: string;
+  caption: string;
+  priority?: boolean;
+}) {
+  return (
+    <figure className="overflow-hidden">
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-[color:var(--cdu-blue)]/5">
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          priority={priority}
+          className="object-cover"
+          sizes="(max-width: 672px) 100vw, 672px"
+        />
+      </div>
+      <figcaption className="mt-2 text-xs leading-relaxed text-[color:var(--cdu-blue)]/60">
+        {caption}
+      </figcaption>
+    </figure>
+  );
+}
+
 export default async function UeberUnsPage() {
   const admin = await isAdmin();
 
@@ -23,20 +54,33 @@ export default async function UeberUnsPage() {
       <StickyHero isSignedIn={admin} />
 
       <main id="inhalt" className="mx-auto w-full max-w-2xl flex-1 space-y-12 px-4 py-10 sm:px-6">
-        <section className="space-y-4">
-          <h1 className="font-display text-4xl text-[color:var(--cdu-blue)]">
-            Über uns
-          </h1>
-          <p className="text-lg text-[color:var(--cdu-blue)]/80">
-            Die CDU Zornheim stellt sich vor – engagiert für unsere Gemeinde in
-            der Verbandsgemeinde {gemeinde.verbandsgemeinde}.
-          </p>
+        <section className="space-y-5">
+          <div className="space-y-4">
+            <h1 className="font-display text-4xl text-[color:var(--cdu-blue)]">
+              Über uns
+            </h1>
+            <p className="text-lg text-[color:var(--cdu-blue)]/80">
+              Die CDU Zornheim stellt sich vor – engagiert für unsere Gemeinde in
+              der Verbandsgemeinde {gemeinde.verbandsgemeinde}.
+            </p>
+          </div>
+          <Figure
+            src="/images/ueber-uns/ortschaft.jpg"
+            alt="Straßenansicht in Zornheim an der Kreuzung Raiffeisenstraße / Nieder-Olmer Straße"
+            caption="Zornheim im Ortskern – Foto: ManuelB701 (CC0), Wikimedia Commons"
+            priority
+          />
         </section>
 
-        <section className="space-y-4">
+        <section className="space-y-5">
           <h2 className="font-display text-2xl text-[color:var(--cdu-blue)]">
             CDU Zornheim stellt sich vor
           </h2>
+          <Figure
+            src="/images/ueber-uns/gemeinschaft.jpg"
+            alt="Gruppe von Menschen, Arm in Arm, blickt auf eine Landschaft im Sonnenlicht"
+            caption="Gemeinschaft und Zusammenhalt – Bild AI-hochskaliert (Real-ESRGAN) für die Webdarstellung"
+          />
           <div className="space-y-3 text-[color:var(--cdu-blue)]/90">
             <p>
               Die CDU Zornheim ist der Ortsverband der Christlich Demokratischen
@@ -55,10 +99,15 @@ export default async function UeberUnsPage() {
           </div>
         </section>
 
-        <section className="space-y-4">
+        <section className="space-y-5">
           <h2 className="font-display text-2xl text-[color:var(--cdu-blue)]">
             Ortsbürgermeister
           </h2>
+          <Figure
+            src="/images/ueber-uns/rathaus.jpg"
+            alt="Rathaus Zornheim im barocken Fachwerkhaus"
+            caption="Rathaus Zornheim – Foto: Rudolf Stricker, Wikimedia Commons"
+          />
           <div className="space-y-3 text-[color:var(--cdu-blue)]/90">
             <p>
               <span className="font-semibold">{ortsbuergermeister.name}</span>{" "}
@@ -81,10 +130,15 @@ export default async function UeberUnsPage() {
           </div>
         </section>
 
-        <section className="space-y-4">
+        <section className="space-y-5">
           <h2 className="font-display text-2xl text-[color:var(--cdu-blue)]">
             Beigeordnete
           </h2>
+          <Figure
+            src="/images/ueber-uns/rathaus-detail.jpg"
+            alt="Detailansicht des barocken Rathauses mit Zierfachwerk in Zornheim"
+            caption="Gemeindeverwaltung im historischen Fachwerk – Foto: Nixnubix (CC BY-SA 4.0)"
+          />
           <ul className="space-y-3 text-[color:var(--cdu-blue)]/90">
             {beigeordnete.map((person) => (
               <li key={person.name}>
@@ -104,10 +158,15 @@ export default async function UeberUnsPage() {
           </ul>
         </section>
 
-        <section className="space-y-4">
+        <section className="space-y-5">
           <h2 className="font-display text-2xl text-[color:var(--cdu-blue)]">
             CDU-Fraktion im Gemeinderat
           </h2>
+          <Figure
+            src="/images/ueber-uns/fachwerkhaus.jpg"
+            alt="Historisches Fachwerkhaus in der Oberen Pfortenstraße in Zornheim"
+            caption="Ortsbild Zornheim – Foto: Suitbert (CC BY-SA 3.0), Wikimedia Commons"
+          />
           <div className="space-y-3 text-[color:var(--cdu-blue)]/90">
             <p>
               Unsere Fraktion vertritt mit {cduFraktion.length} Mandaten die
