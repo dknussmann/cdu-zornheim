@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Show, SignInButton, SignOutButton, UserButton } from "@clerk/nextjs";
 import { logoutAction } from "@/app/actions/auth";
-import { CduWordmark } from "@/components/CduWordmark";
+import { CduLogo } from "@/components/CduLogo";
 
 const hasClerk = Boolean(process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY);
 
@@ -23,10 +23,11 @@ export function SiteHeaderNav({
       className="flex items-center justify-between gap-3"
     >
       <Link href="/" className="min-w-0" aria-label="CDU Zornheim – Startseite">
-        <CduWordmark
+        <CduLogo
           variant="on-dark"
           size={compact ? "sm" : "md"}
-          regional="Zornheim"
+          regional="Ortsverband Zornheim"
+          priority
         />
       </Link>
       <div className="flex items-center gap-1 sm:gap-2">

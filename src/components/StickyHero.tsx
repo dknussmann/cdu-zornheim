@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { CduWordmark } from "@/components/CduWordmark";
+import { CduLogo } from "@/components/CduLogo";
 import { CoatOfArms } from "@/components/CoatOfArms";
 import { SiteHeaderNav } from "@/components/SiteHeaderNav";
 
@@ -159,11 +159,12 @@ export function StickyHero({ isSignedIn }: StickyHeroProps) {
             />
             <div className="max-w-3xl">
               <div className="hero-fade-in-delay flex justify-center">
-                <CduWordmark
+                <CduLogo
                   variant="on-dark"
                   size="hero"
                   regional="Ortsverband Zornheim"
-                  className="items-center text-center [&_.cdu-bogen]:bogen-reveal"
+                  priority
+                  className="items-center text-center"
                 />
               </div>
               <p className="hero-fade-in-delay-2 mx-auto mt-6 max-w-xl font-display text-lg text-white/95 sm:text-xl">
@@ -171,7 +172,7 @@ export function StickyHero({ isSignedIn }: StickyHeroProps) {
                 unsere Gemeinde.
               </p>
               <div className="hero-fade-in-delay-3 mt-8 flex flex-wrap items-center justify-center gap-3">
-                <Link href="/#aktuelles" className="btn-primary">
+                <Link href="/#aktuelles" className="btn-accent">
                   Aktuelles lesen
                 </Link>
                 <Link href="/kontakt" className="btn-secondary">

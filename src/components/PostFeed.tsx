@@ -26,12 +26,13 @@ export function PostFeed({ posts }: { posts: Post[] }) {
         <li key={post.id} className="overflow-hidden bg-white">
           <article aria-labelledby={`post-${post.id}-title`}>
             <header className="flex items-center gap-3 border-b border-[color:var(--cdu-teal)]/25 px-4 py-3 sm:px-5">
-              <div
-                className="flex h-10 w-10 items-center justify-center bg-[color:var(--cdu-teal)] font-headline text-xs tracking-tight text-white"
-                aria-hidden="true"
-              >
-                CDU
-              </div>
+              <Image
+                src="/images/brand/cdu-logo-sm.png"
+                alt=""
+                width={96}
+                height={22}
+                className="h-6 w-auto object-contain"
+              />
               <div className="min-w-0 flex-1">
                 <h3
                   id={`post-${post.id}-title`}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PageBanner } from "@/components/PageBanner";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { isAdmin } from "@/lib/admin";
@@ -10,22 +11,15 @@ export default async function SpendenPage() {
 
   return (
     <>
-      <a href="#inhalt" className="skip-link">
-        Zum Inhalt springen
-      </a>
-
       <SiteHeader isSignedIn={admin} />
 
-      <main id="inhalt" className="mx-auto w-full max-w-2xl flex-1 space-y-12 px-4 py-10 sm:px-6">
-        <section className="space-y-4">
-          <h1 className="font-headline text-4xl text-[color:var(--cdu-blue)]">
-            Spenden
-          </h1>
-          <p className="text-lg text-[color:var(--cdu-blue)]/80">
-            Unterstützen Sie unsere Arbeit für Zornheim.
-          </p>
-        </section>
+      <PageBanner
+        id="inhalt"
+        title="Spenden"
+        lead="Unterstützen Sie unsere Arbeit für Zornheim."
+      />
 
+      <main className="mx-auto w-full max-w-2xl flex-1 space-y-12 px-4 py-10 sm:px-6">
         <section className="space-y-4">
           <h2 className="font-headline text-2xl text-[color:var(--cdu-blue)]">
             Ihre Unterstützung zählt

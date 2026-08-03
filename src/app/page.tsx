@@ -4,8 +4,10 @@ import { FeatureFlaggedCalendar } from "@/components/FeatureFlaggedCalendar";
 import { Mitmachen } from "@/components/Mitmachen";
 import { PostComposer } from "@/components/PostComposer";
 import { PostFeed } from "@/components/PostFeed";
+import { SectionBanner } from "@/components/SectionBanner";
 import { SiteFooter } from "@/components/SiteFooter";
 import { StickyHero } from "@/components/StickyHero";
+import { ZornheimerBote } from "@/components/ZornheimerBote";
 import { db } from "@/db";
 import { events, posts } from "@/db/schema";
 import { isAdmin } from "@/lib/admin";
@@ -21,10 +23,6 @@ export default async function HomePage() {
 
   return (
     <>
-      <a href="#inhalt" className="skip-link">
-        Zum Inhalt springen
-      </a>
-
       <StickyHero isSignedIn={admin} />
 
       <main
@@ -36,54 +34,33 @@ export default async function HomePage() {
           aria-labelledby="highlights-heading"
           className="scroll-mt-20 space-y-5"
         >
-          <div>
-            <p className="section-kicker">Aktuelles</p>
-            <h2
-              id="highlights-heading"
-              className="font-headline mt-2 text-3xl text-[color:var(--cdu-blue)] sm:text-4xl"
-            >
-              Neuigkeiten
-            </h2>
-            <p className="mt-2 font-display text-[color:var(--cdu-blue)]/80">
-              Die wichtigsten Beiträge aus dem Ortsverband auf einen Blick.
-            </p>
-          </div>
+          <SectionBanner
+            tone="dark"
+            kicker="Aktuelles"
+            title="Neuigkeiten"
+            titleId="highlights-heading"
+          >
+            Die wichtigsten Beiträge aus dem Ortsverband auf einen Blick.
+          </SectionBanner>
 
           {admin ? <PostComposer /> : null}
           <PostFeed posts={allPosts.slice(0, 3)} />
 
           {allPosts.length > 3 && (
             <div className="flex justify-center pt-2">
-              <Link href="/archiv" className="btn-outline">
+              <Link href="/archiv" className="btn-primary">
                 Alle Neuigkeiten anzeigen
               </Link>
             </div>
           )}
         </section>
 
-        <section id="zornheimer-bote" className="scroll-mt-20 space-y-5">
-          <div>
-            <p className="section-kicker">Gemeindezeitung</p>
-            <h2 className="font-headline mt-2 text-3xl text-[color:var(--cdu-blue)] sm:text-4xl">
-              Zornheimer Bote
-            </h2>
-            <p className="mt-2 font-display text-[color:var(--cdu-blue)]/80">
-              Unsere Gemeindezeitung informiert Sie über lokale Themen und
-              Entwicklungen.
-            </p>
-          </div>
-          <div className="border border-[color:var(--cdu-blue)]/10 bg-white p-6">
-            <p className="text-[color:var(--cdu-blue)]/90">
-              Hier finden Sie alle Ausgaben des Zornheimer Boten mit wichtigen
-              Informationen aus unserer Gemeinde, Berichten über Veranstaltungen
-              und Einblicken in die kommunalpolitische Arbeit.
-            </p>
-            <div className="mt-4">
-              <Link href="/archiv#zornheimer-bote" className="btn-solid">
-                Zum Archiv
-              </Link>
-            </div>
-          </div>
+        <section
+          id="zornheimer-bote"
+          aria-labelledby="bote-heading"
+          className="scroll-mt-20"
+        >
+          <ZornheimerBote variant="home" />
         </section>
 
         <FeatureFlaggedCalendar events={allEvents} />

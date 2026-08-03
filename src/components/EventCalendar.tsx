@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { SectionBanner } from "@/components/SectionBanner";
 import type { Event } from "@/db/schema";
 
 const WEEKDAYS = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
@@ -63,21 +64,14 @@ export function EventCalendar({ events }: { events: Event[] }) {
   return (
     <section
       aria-labelledby="calendar-heading"
-      className="bg-white p-4 sm:p-6"
+      className="scroll-mt-20 space-y-5"
     >
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <p className="section-kicker">Kalender</p>
-          <h2
-            id="calendar-heading"
-            className="font-headline mt-2 text-3xl text-[color:var(--cdu-blue)] sm:text-4xl"
-          >
-            Termine
-          </h2>
-          <p className="mt-1 font-display capitalize text-[color:var(--cdu-blue)]/80">
-            {monthLabel}
-          </p>
-        </div>
+      <SectionBanner tone="dark" kicker="Kalender" title="Termine" titleId="calendar-heading">
+        <span className="capitalize">{monthLabel}</span>
+      </SectionBanner>
+
+      <div className="bg-white p-4 sm:p-6">
+      <div className="flex flex-wrap items-center justify-end gap-3">
         <div className="flex gap-2">
           <button
             type="button"
@@ -184,6 +178,7 @@ export function EventCalendar({ events }: { events: Event[] }) {
             ))}
           </ul>
         )}
+      </div>
       </div>
     </section>
   );

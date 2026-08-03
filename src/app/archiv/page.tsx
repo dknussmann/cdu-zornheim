@@ -1,7 +1,9 @@
 import { desc, lt } from "drizzle-orm";
+import { PageBanner } from "@/components/PageBanner";
+import { PostFeed } from "@/components/PostFeed";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
-import { PostFeed } from "@/components/PostFeed";
+import { ZornheimerBote } from "@/components/ZornheimerBote";
 import { db } from "@/db";
 import { posts, events } from "@/db/schema";
 import { isAdmin } from "@/lib/admin";
@@ -22,29 +24,30 @@ export default async function ArchivPage() {
 
   return (
     <>
-      <a href="#inhalt" className="skip-link">
-        Zum Inhalt springen
-      </a>
-
       <SiteHeader isSignedIn={admin} />
 
-      <main id="inhalt" className="mx-auto w-full max-w-2xl flex-1 space-y-12 px-4 py-10 sm:px-6">
-        <section className="space-y-4">
-          <h1 className="font-headline text-4xl text-[color:var(--cdu-blue)]">
-            Archiv
-          </h1>
-          <p className="text-lg text-[color:var(--cdu-blue)]/80">
-            Alle Neuigkeiten und Ereignisse auf einen Blick.
-          </p>
+      <PageBanner
+        id="inhalt"
+        title="Archiv"
+        lead="Alle Neuigkeiten und Ereignisse auf einen Blick."
+      />
+
+      <main className="mx-auto w-full max-w-2xl flex-1 space-y-12 px-4 py-10 sm:px-6">
+        <section
+          id="zornheimer-bote"
+          aria-labelledby="bote-heading"
+          className="scroll-mt-20"
+        >
+          <ZornheimerBote variant="archive" />
         </section>
 
-        <section id="zornheimer-bote" className="space-y-5">
+        <section id="neuigkeiten" className="space-y-5">
           <div>
             <h2 className="font-headline text-2xl text-[color:var(--cdu-blue)]">
-              Zornheimer Bote
+              Neuigkeiten
             </h2>
             <p className="mt-1 text-[color:var(--cdu-blue)]/80">
-              Alle Ausgaben unserer Gemeindezeitung im Überblick.
+              Alle Beiträge aus dem Ortsverband.
             </p>
           </div>
           <PostFeed posts={allPosts} />
@@ -64,7 +67,7 @@ export default async function ArchivPage() {
               {pastEvents.map((event) => (
                 <article
                   key={event.id}
-                  className="rounded-xl border border-[color:var(--cdu-blue)]/10 bg-white/70 p-5"
+                  className="border border-[color:var(--cdu-blue)]/10 bg-white/70 p-5"
                 >
                   <h3 className="font-semibold text-[color:var(--cdu-blue)]">
                     {event.title}

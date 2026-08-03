@@ -91,22 +91,6 @@ select:focus-visible {
   outline-offset: 2px;
 }
 
-.skip-link {
-  position: absolute;
-  left: 1rem;
-  top: -100px;
-  z-index: 100;
-  border-radius: 0.25rem;
-  background: var(--cdu-blue);
-  color: white;
-  padding: 0.75rem 1rem;
-  font-weight: 700;
-}
-
-.skip-link:focus {
-  top: 1rem;
-}
-
 .sticky-bar {
   --header-progress: 0;
   background: color-mix(
@@ -211,14 +195,31 @@ select:focus-visible {
   align-items: center;
   justify-content: center;
   border-radius: 0.25rem;
-  background: var(--cdu-gold);
+  background: var(--cdu-teal);
   padding: 0 1.25rem;
   font-weight: 700;
-  color: var(--cdu-ink);
+  color: white;
   transition: filter 150ms ease, transform 150ms ease;
 }
 
 .btn-primary:hover {
+  filter: brightness(1.05);
+}
+
+.btn-accent {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+  background: var(--cdu-gold);
+  padding: 0 1.25rem;
+  font-weight: 700;
+  color: var(--cdu-ink);
+  transition: filter 150ms ease;
+}
+
+.btn-accent:hover {
   filter: brightness(1.05);
 }
 
