@@ -1,3 +1,4 @@
+import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Mitmachen } from "@/components/Mitmachen";
 import { isAdmin } from "@/lib/admin";
@@ -17,7 +18,7 @@ export default async function KontaktPage() {
 
       <main id="inhalt" className="mx-auto w-full max-w-2xl flex-1 space-y-12 px-4 py-10 sm:px-6">
         <section className="space-y-4">
-          <h1 className="font-display text-4xl text-[color:var(--cdu-blue)]">
+          <h1 className="font-headline text-4xl text-[color:var(--cdu-blue)]">
             Kontakt
           </h1>
           <p className="text-lg text-[color:var(--cdu-blue)]/80">
@@ -26,7 +27,7 @@ export default async function KontaktPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="font-display text-2xl text-[color:var(--cdu-blue)]">
+          <h2 className="font-headline text-2xl text-[color:var(--cdu-blue)]">
             Mitmachen und Kontakt aufnehmen
           </h2>
           <div className="space-y-3 text-[color:var(--cdu-blue)]/90">
@@ -47,7 +48,7 @@ export default async function KontaktPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="font-display text-2xl text-[color:var(--cdu-blue)]">
+          <h2 className="font-headline text-2xl text-[color:var(--cdu-blue)]">
             CDU Ortsverband Zornheim
           </h2>
           <div className="space-y-3 text-[color:var(--cdu-blue)]/90">
@@ -68,12 +69,7 @@ export default async function KontaktPage() {
         </section>
       </main>
 
-      <footer className="mt-auto border-t border-[color:var(--cdu-blue)]/10 bg-white/70">
-        <div className="mx-auto flex max-w-2xl flex-col gap-2 px-4 py-8 text-sm text-[color:var(--cdu-blue)] sm:px-6">
-          <p className="font-semibold">CDU Ortsverband Zornheim</p>
-          <p>© {new Date().getFullYear()} CDU Zornheim</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }

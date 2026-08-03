@@ -3,8 +3,12 @@
 import Link from "next/link";
 import { Show, SignInButton, SignOutButton, UserButton } from "@clerk/nextjs";
 import { logoutAction } from "@/app/actions/auth";
+import { CduWordmark } from "@/components/CduWordmark";
 
 const hasClerk = Boolean(process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY);
+
+const navLinkClass =
+  "hidden min-h-11 items-center rounded px-3 text-sm font-semibold text-white/95 underline-offset-4 hover:underline sm:inline-flex";
 
 export function SiteHeaderNav({
   isSignedIn,
@@ -18,42 +22,27 @@ export function SiteHeaderNav({
       aria-label="Hauptnavigation"
       className="flex items-center justify-between gap-3"
     >
-      <p
-        className={`font-display tracking-wide text-white ${
-          compact ? "text-base sm:text-lg" : "text-lg sm:text-xl"
-        }`}
-      >
-        CDU Zornheim
-      </p>
-      <div className="flex items-center gap-2 sm:gap-3">
-        <Link
-          href="/"
-          className="hidden min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-white/95 underline-offset-4 hover:underline sm:inline-flex"
-        >
+      <Link href="/" className="min-w-0" aria-label="CDU Zornheim – Startseite">
+        <CduWordmark
+          variant="on-dark"
+          size={compact ? "sm" : "md"}
+          regional="Zornheim"
+        />
+      </Link>
+      <div className="flex items-center gap-1 sm:gap-2">
+        <Link href="/" className={navLinkClass}>
           Startseite
         </Link>
-        <Link
-          href="/ueber-uns"
-          className="hidden min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-white/95 underline-offset-4 hover:underline sm:inline-flex"
-        >
+        <Link href="/ueber-uns" className={navLinkClass}>
           Über uns
         </Link>
-        <Link
-          href="/archiv"
-          className="hidden min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-white/95 underline-offset-4 hover:underline sm:inline-flex"
-        >
+        <Link href="/archiv" className={navLinkClass}>
           Archiv
         </Link>
-        <Link
-          href="/spenden"
-          className="hidden min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-white/95 underline-offset-4 hover:underline sm:inline-flex"
-        >
+        <Link href="/spenden" className={navLinkClass}>
           Spenden
         </Link>
-        <Link
-          href="/kontakt"
-          className="hidden min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-white/95 underline-offset-4 hover:underline sm:inline-flex"
-        >
+        <Link href="/kontakt" className={navLinkClass}>
           Kontakt
         </Link>
         {hasClerk ? (
@@ -62,7 +51,7 @@ export function SiteHeaderNav({
               <SignInButton mode="modal">
                 <button
                   type="button"
-                  className="min-h-11 rounded-lg bg-white px-4 text-sm font-semibold text-[color:var(--cdu-blue)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--cdu-gold)]"
+                  className="min-h-11 rounded bg-white px-4 text-sm font-bold text-[color:var(--cdu-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--cdu-gold)]"
                 >
                   Anmelden
                 </button>
@@ -74,7 +63,7 @@ export function SiteHeaderNav({
                 <SignOutButton>
                   <button
                     type="button"
-                    className="min-h-11 rounded-lg border border-white/40 px-3 text-sm font-semibold text-white"
+                    className="min-h-11 rounded border border-white/40 px-3 text-sm font-semibold text-white"
                   >
                     Abmelden
                   </button>
@@ -86,7 +75,7 @@ export function SiteHeaderNav({
           <form action={logoutAction}>
             <button
               type="submit"
-              className="min-h-11 rounded-lg border border-white/40 px-3 text-sm font-semibold text-white"
+              className="min-h-11 rounded border border-white/40 px-3 text-sm font-semibold text-white"
             >
               Abmelden
             </button>
@@ -94,7 +83,7 @@ export function SiteHeaderNav({
         ) : (
           <Link
             href="/sign-in"
-            className="min-h-11 inline-flex items-center rounded-lg bg-white px-4 text-sm font-semibold text-[color:var(--cdu-blue)]"
+            className="min-h-11 inline-flex items-center rounded bg-white px-4 text-sm font-bold text-[color:var(--cdu-ink)]"
           >
             Anmelden
           </Link>

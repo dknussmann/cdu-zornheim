@@ -7,10 +7,10 @@ export default function SignInPage() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-[color:var(--cdu-surface)] px-4">
       <div className="w-full max-w-md space-y-4">
-        <h1 className="text-center font-display text-2xl text-[color:var(--cdu-blue)]">
+        <h1 className="text-center font-headline text-2xl text-[color:var(--cdu-blue)]">
           Anmeldung für Administratorinnen und Administratoren
         </h1>
-        <p className="text-center text-sm text-[color:var(--cdu-blue)]/80">
+        <p className="text-center font-display text-sm text-[color:var(--cdu-blue)]/80">
           Melden Sie sich per E-Mail-Link an, um Beiträge zu veröffentlichen.
         </p>
         {hasClerk ? <SignIn /> : <MagicLoginForm />}

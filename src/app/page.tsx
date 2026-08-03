@@ -4,6 +4,7 @@ import { FeatureFlaggedCalendar } from "@/components/FeatureFlaggedCalendar";
 import { Mitmachen } from "@/components/Mitmachen";
 import { PostComposer } from "@/components/PostComposer";
 import { PostFeed } from "@/components/PostFeed";
+import { SiteFooter } from "@/components/SiteFooter";
 import { StickyHero } from "@/components/StickyHero";
 import { db } from "@/db";
 import { events, posts } from "@/db/schema";
@@ -26,26 +27,34 @@ export default async function HomePage() {
 
       <StickyHero isSignedIn={admin} />
 
-      <main id="inhalt" className="mx-auto w-full max-w-2xl flex-1 space-y-10 px-4 py-10 sm:px-6">
-        <section id="aktuelles" aria-labelledby="highlights-heading" className="scroll-mt-20 space-y-5">
+      <main
+        id="inhalt"
+        className="mx-auto w-full max-w-2xl flex-1 space-y-14 px-4 py-12 sm:px-6"
+      >
+        <section
+          id="aktuelles"
+          aria-labelledby="highlights-heading"
+          className="scroll-mt-20 space-y-5"
+        >
           <div>
-            <h2 id="highlights-heading" className="font-display text-3xl text-[color:var(--cdu-blue)]">
-              Aktuelles
+            <p className="section-kicker">Aktuelles</p>
+            <h2
+              id="highlights-heading"
+              className="font-headline mt-2 text-3xl text-[color:var(--cdu-blue)] sm:text-4xl"
+            >
+              Neuigkeiten
             </h2>
-            <p className="mt-1 text-[color:var(--cdu-blue)]/80">
-              Die wichtigsten Neuigkeiten auf einen Blick.
+            <p className="mt-2 font-display text-[color:var(--cdu-blue)]/80">
+              Die wichtigsten Beiträge aus dem Ortsverband auf einen Blick.
             </p>
           </div>
 
           {admin ? <PostComposer /> : null}
           <PostFeed posts={allPosts.slice(0, 3)} />
-          
+
           {allPosts.length > 3 && (
             <div className="flex justify-center pt-2">
-              <Link
-                href="/archiv"
-                className="inline-flex min-h-11 items-center justify-center rounded-lg border border-[color:var(--cdu-blue)]/30 px-5 font-semibold text-[color:var(--cdu-blue)] hover:bg-[color:var(--cdu-blue)]/5"
-              >
+              <Link href="/archiv" className="btn-outline">
                 Alle Neuigkeiten anzeigen
               </Link>
             </div>
@@ -54,24 +63,23 @@ export default async function HomePage() {
 
         <section id="zornheimer-bote" className="scroll-mt-20 space-y-5">
           <div>
-            <h2 className="font-display text-3xl text-[color:var(--cdu-blue)]">
+            <p className="section-kicker">Gemeindezeitung</p>
+            <h2 className="font-headline mt-2 text-3xl text-[color:var(--cdu-blue)] sm:text-4xl">
               Zornheimer Bote
             </h2>
-            <p className="mt-1 text-[color:var(--cdu-blue)]/80">
-              Unsere Gemeindezeitung informiert Sie über lokale Themen und Entwicklungen.
+            <p className="mt-2 font-display text-[color:var(--cdu-blue)]/80">
+              Unsere Gemeindezeitung informiert Sie über lokale Themen und
+              Entwicklungen.
             </p>
           </div>
-          <div className="rounded-xl border border-[color:var(--cdu-blue)]/10 bg-white/70 p-6">
+          <div className="border border-[color:var(--cdu-blue)]/10 bg-white p-6">
             <p className="text-[color:var(--cdu-blue)]/90">
               Hier finden Sie alle Ausgaben des Zornheimer Boten mit wichtigen
               Informationen aus unserer Gemeinde, Berichten über Veranstaltungen
               und Einblicken in die kommunalpolitische Arbeit.
             </p>
-            <div className="mt-4 flex gap-3">
-              <Link
-                href="/archiv#zornheimer-bote"
-                className="inline-flex min-h-11 items-center justify-center rounded-lg bg-[color:var(--cdu-blue)] px-5 font-semibold text-white hover:bg-[color:var(--cdu-blue)]/90"
-              >
+            <div className="mt-4">
+              <Link href="/archiv#zornheimer-bote" className="btn-solid">
                 Zum Archiv
               </Link>
             </div>
@@ -85,12 +93,7 @@ export default async function HomePage() {
         </div>
       </main>
 
-      <footer className="mt-auto border-t border-[color:var(--cdu-blue)]/10 bg-white/70">
-        <div className="mx-auto flex max-w-2xl flex-col gap-2 px-4 py-8 text-sm text-[color:var(--cdu-blue)] sm:px-6">
-          <p className="font-semibold">CDU Ortsverband Zornheim</p>
-          <p>© {new Date().getFullYear()} CDU Zornheim</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }

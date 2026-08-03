@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import {
   beigeordnete,
@@ -56,7 +57,7 @@ export default async function UeberUnsPage() {
       <main id="inhalt" className="mx-auto w-full max-w-2xl flex-1 space-y-12 px-4 py-10 sm:px-6">
         <section className="space-y-5">
           <div className="space-y-4">
-            <h1 className="font-display text-4xl text-[color:var(--cdu-blue)]">
+            <h1 className="font-headline text-4xl text-[color:var(--cdu-blue)]">
               Über uns
             </h1>
             <p className="text-lg text-[color:var(--cdu-blue)]/80">
@@ -73,7 +74,7 @@ export default async function UeberUnsPage() {
         </section>
 
         <section className="space-y-5">
-          <h2 className="font-display text-2xl text-[color:var(--cdu-blue)]">
+          <h2 className="font-headline text-2xl text-[color:var(--cdu-blue)]">
             CDU Zornheim stellt sich vor
           </h2>
           <Figure
@@ -100,7 +101,7 @@ export default async function UeberUnsPage() {
         </section>
 
         <section className="space-y-5">
-          <h2 className="font-display text-2xl text-[color:var(--cdu-blue)]">
+          <h2 className="font-headline text-2xl text-[color:var(--cdu-blue)]">
             Ortsbürgermeister
           </h2>
           <Figure
@@ -131,7 +132,7 @@ export default async function UeberUnsPage() {
         </section>
 
         <section className="space-y-5">
-          <h2 className="font-display text-2xl text-[color:var(--cdu-blue)]">
+          <h2 className="font-headline text-2xl text-[color:var(--cdu-blue)]">
             Beigeordnete
           </h2>
           <Figure
@@ -159,7 +160,7 @@ export default async function UeberUnsPage() {
         </section>
 
         <section className="space-y-5">
-          <h2 className="font-display text-2xl text-[color:var(--cdu-blue)]">
+          <h2 className="font-headline text-2xl text-[color:var(--cdu-blue)]">
             CDU-Fraktion im Gemeinderat
           </h2>
           <Figure
@@ -195,7 +196,7 @@ export default async function UeberUnsPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="font-display text-2xl text-[color:var(--cdu-blue)]">
+          <h2 className="font-headline text-2xl text-[color:var(--cdu-blue)]">
             Vorstand des Ortsverbands
           </h2>
           <div className="space-y-3 text-[color:var(--cdu-blue)]/90">
@@ -214,7 +215,7 @@ export default async function UeberUnsPage() {
             <div className="pt-2">
               <Link
                 href="/kontakt"
-                className="inline-flex min-h-11 items-center justify-center rounded-lg bg-[color:var(--cdu-blue)] px-5 font-semibold text-white hover:bg-[color:var(--cdu-blue)]/90"
+                className="btn-solid"
               >
                 Vorstand kontaktieren
               </Link>
@@ -223,7 +224,7 @@ export default async function UeberUnsPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="font-display text-2xl text-[color:var(--cdu-blue)]">
+          <h2 className="font-headline text-2xl text-[color:var(--cdu-blue)]">
             Mitgliedschaft
           </h2>
           <div className="space-y-3 text-[color:var(--cdu-blue)]/90">
@@ -236,7 +237,7 @@ export default async function UeberUnsPage() {
             <div className="pt-2">
               <Link
                 href="/kontakt"
-                className="inline-flex min-h-11 items-center justify-center rounded-lg border border-[color:var(--cdu-blue)]/30 px-5 font-semibold text-[color:var(--cdu-blue)] hover:bg-[color:var(--cdu-blue)]/5"
+                className="btn-outline"
               >
                 Mitglied werden / Kontakt
               </Link>
@@ -245,12 +246,7 @@ export default async function UeberUnsPage() {
         </section>
       </main>
 
-      <footer className="mt-auto border-t border-[color:var(--cdu-blue)]/10 bg-white/70">
-        <div className="mx-auto flex max-w-2xl flex-col gap-2 px-4 py-8 text-sm text-[color:var(--cdu-blue)] sm:px-6">
-          <p className="font-semibold">CDU Ortsverband Zornheim</p>
-          <p>© {new Date().getFullYear()} CDU Zornheim</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }

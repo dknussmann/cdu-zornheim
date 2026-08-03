@@ -1,4 +1,5 @@
 import { desc, lt } from "drizzle-orm";
+import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PostFeed } from "@/components/PostFeed";
 import { db } from "@/db";
@@ -29,7 +30,7 @@ export default async function ArchivPage() {
 
       <main id="inhalt" className="mx-auto w-full max-w-2xl flex-1 space-y-12 px-4 py-10 sm:px-6">
         <section className="space-y-4">
-          <h1 className="font-display text-4xl text-[color:var(--cdu-blue)]">
+          <h1 className="font-headline text-4xl text-[color:var(--cdu-blue)]">
             Archiv
           </h1>
           <p className="text-lg text-[color:var(--cdu-blue)]/80">
@@ -39,7 +40,7 @@ export default async function ArchivPage() {
 
         <section id="zornheimer-bote" className="space-y-5">
           <div>
-            <h2 className="font-display text-2xl text-[color:var(--cdu-blue)]">
+            <h2 className="font-headline text-2xl text-[color:var(--cdu-blue)]">
               Zornheimer Bote
             </h2>
             <p className="mt-1 text-[color:var(--cdu-blue)]/80">
@@ -52,7 +53,7 @@ export default async function ArchivPage() {
         {pastEvents.length > 0 && (
           <section id="vergangene-events" className="space-y-5">
             <div>
-              <h2 className="font-display text-2xl text-[color:var(--cdu-blue)]">
+              <h2 className="font-headline text-2xl text-[color:var(--cdu-blue)]">
                 Vergangene Veranstaltungen
               </h2>
               <p className="mt-1 text-[color:var(--cdu-blue)]/80">
@@ -89,12 +90,7 @@ export default async function ArchivPage() {
         )}
       </main>
 
-      <footer className="mt-auto border-t border-[color:var(--cdu-blue)]/10 bg-white/70">
-        <div className="mx-auto flex max-w-2xl flex-col gap-2 px-4 py-8 text-sm text-[color:var(--cdu-blue)] sm:px-6">
-          <p className="font-semibold">CDU Ortsverband Zornheim</p>
-          <p>© {new Date().getFullYear()} CDU Zornheim</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }
