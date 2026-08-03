@@ -1,5 +1,5 @@
 import { desc, lt } from "drizzle-orm";
-import { StickyHero } from "@/components/StickyHero";
+import { SiteHeader } from "@/components/SiteHeader";
 import { PostFeed } from "@/components/PostFeed";
 import { db } from "@/db";
 import { posts, events } from "@/db/schema";
@@ -25,7 +25,7 @@ export default async function ArchivPage() {
         Zum Inhalt springen
       </a>
 
-      <StickyHero isSignedIn={admin} />
+      <SiteHeader isSignedIn={admin} />
 
       <main id="inhalt" className="mx-auto w-full max-w-2xl flex-1 space-y-12 px-4 py-10 sm:px-6">
         <section className="space-y-4">

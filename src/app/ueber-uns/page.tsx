@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { StickyHero } from "@/components/StickyHero";
+import { SiteHeader } from "@/components/SiteHeader";
 import {
   beigeordnete,
   cduFraktion,
@@ -51,7 +51,7 @@ export default async function UeberUnsPage() {
         Zum Inhalt springen
       </a>
 
-      <StickyHero isSignedIn={admin} />
+      <SiteHeader isSignedIn={admin} />
 
       <main id="inhalt" className="mx-auto w-full max-w-2xl flex-1 space-y-12 px-4 py-10 sm:px-6">
         <section className="space-y-5">

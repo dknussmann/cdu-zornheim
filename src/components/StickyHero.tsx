@@ -181,7 +181,7 @@ export function StickyHero({ isSignedIn }: StickyHeroProps) {
         ref={flyerRef}
         className={`wappen-flyer ${ready ? "is-ready" : ""} ${snapped ? "is-snapped" : ""}`}
       >
-        <CoatOfArms className={snapped ? "coat-compact" : ""} />
+        <CoatOfArms compact={snapped} />
       </div>
     </>
   );
