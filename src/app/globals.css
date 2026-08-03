@@ -1,13 +1,20 @@
 @import "tailwindcss";
 
+/* CDU Corporate Design (Manual 2023) — also used by CDU Rheinland-Pfalz */
 :root {
-  --cdu-teal: #52b7c1;
-  --cdu-blue: #2d3c4b;
-  --cdu-gold: #ffa600;
-  --cdu-red: #bf111b;
-  --cdu-ink: #1b191d;
-  --cdu-surface: #eef6f7;
-  --background: #e8f4f5;
+  --cdu-teal: #52b7c1; /* Cadenabbia-Türkis */
+  --cdu-teal-60: #a7d5dc;
+  --cdu-teal-25: #ddeef1;
+  --cdu-teal-10: #f2f8fa;
+  --cdu-blue: #2d3c4b; /* Rhöndorf-Blau */
+  --cdu-blue-60: #737986;
+  --cdu-blue-25: #bec1c7;
+  --cdu-blue-10: #e5e5e9;
+  --cdu-gold: #ffa600; /* Union-Gold */
+  --cdu-red: #bf111b; /* Union-Rot */
+  --cdu-ink: #1b191d; /* Union-Schwarz */
+  --cdu-surface: #f2f8fa;
+  --background: #f2f8fa;
   --foreground: #1b191d;
 }
 
@@ -15,6 +22,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-body);
+  --font-serif: var(--font-display);
 }
 
 * {
@@ -29,15 +37,49 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    radial-gradient(1200px 600px at 10% -10%, rgba(82, 183, 193, 0.45), transparent 55%),
-    radial-gradient(900px 500px at 100% 0%, rgba(255, 166, 0, 0.18), transparent 50%),
-    linear-gradient(180deg, #d9eef1 0%, #eef6f7 40%, #f7fbfc 100%);
+    linear-gradient(180deg, var(--cdu-teal-25) 0%, var(--cdu-teal-10) 28%, #ffffff 70%);
   color: var(--foreground);
-  font-family: var(--font-body), "Segoe UI", sans-serif;
+  font-family: var(--font-body), "Inter", system-ui, sans-serif;
 }
 
 .font-display {
-  font-family: var(--font-display), Georgia, serif;
+  font-family: var(--font-display), "IBM Plex Serif", Georgia, serif;
+}
+
+.font-headline {
+  font-family: var(--font-body), "Inter", system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+/* Schwarz–Rot–Gold Bogen (diagonal ascending stripes) */
+.cdu-bogen {
+  display: inline-block;
+  border-radius: 1px;
+  transform: skewY(-18deg);
+  transform-origin: left bottom;
+  background:
+    linear-gradient(
+      to bottom,
+      var(--cdu-ink) 0 28%,
+      transparent 28% 36%,
+      var(--cdu-red) 36% 64%,
+      transparent 64% 72%,
+      var(--cdu-gold) 72% 100%
+    );
+}
+
+.cdu-bogen-bar {
+  height: 4px;
+  width: 100%;
+  max-width: 12rem;
+  background:
+    linear-gradient(
+      90deg,
+      var(--cdu-ink) 0 32%,
+      var(--cdu-red) 32% 66%,
+      var(--cdu-gold) 66% 100%
+    );
 }
 
 a:focus-visible,
@@ -49,49 +91,31 @@ select:focus-visible {
   outline-offset: 2px;
 }
 
-.skip-link {
-  position: absolute;
-  left: 1rem;
-  top: -100px;
-  z-index: 100;
-  border-radius: 0.5rem;
-  background: var(--cdu-blue);
-  color: white;
-  padding: 0.75rem 1rem;
-  font-weight: 600;
-}
-
-.skip-link:focus {
-  top: 1rem;
-}
-
 .sticky-bar {
   --header-progress: 0;
   background: color-mix(
     in srgb,
-    #2d3c4b calc(55% + var(--header-progress) * 40%),
+    var(--cdu-blue) calc(35% + var(--header-progress) * 60%),
     transparent
   );
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid
-    color-mix(in srgb, white calc(var(--header-progress) * 18%), transparent);
+    color-mix(in srgb, white calc(var(--header-progress) * 14%), transparent);
   transition: background 120ms linear, border-color 120ms linear;
 }
 
 .sticky-bar[data-compact="true"] {
-  box-shadow: 0 8px 24px rgba(27, 25, 29, 0.18);
+  box-shadow: 0 6px 20px rgba(27, 25, 29, 0.16);
 }
 
 .hero-shell {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  min-height: min(92vh, 780px);
-  background:
-    linear-gradient(120deg, rgba(45, 60, 75, 0.88) 0%, rgba(45, 60, 75, 0.55) 45%, rgba(82, 183, 193, 0.35) 100%),
-    linear-gradient(180deg, #2d3c4b 0%, #3a5560 100%);
+  min-height: min(92vh, 820px);
   color: white;
+  background: var(--cdu-teal);
 }
 
 .hero-shell::before {
@@ -99,14 +123,156 @@ select:focus-visible {
   position: absolute;
   inset: 0;
   background:
+    linear-gradient(
+      105deg,
+      rgba(45, 60, 75, 0.82) 0%,
+      rgba(45, 60, 75, 0.45) 42%,
+      rgba(82, 183, 193, 0.35) 100%
+    );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-shell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
     repeating-linear-gradient(
       -18deg,
-      transparent 0 18px,
-      rgba(255, 255, 255, 0.03) 18px 19px
+      transparent 0 22px,
+      rgba(255, 255, 255, 0.035) 22px 23px
     );
-  opacity: 0.7;
+  opacity: 0.85;
   pointer-events: none;
-  z-index: -1;
+  z-index: 2;
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-media img {
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+}
+
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cdu-teal);
+}
+
+.section-kicker::before {
+  content: "";
+  display: block;
+  width: 1.75rem;
+  height: 3px;
+  background:
+    linear-gradient(
+      90deg,
+      var(--cdu-ink) 0 33%,
+      var(--cdu-red) 33% 66%,
+      var(--cdu-gold) 66% 100%
+    );
+}
+
+.btn-primary {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+  background: var(--cdu-teal);
+  padding: 0 1.25rem;
+  font-weight: 700;
+  color: white;
+  transition: filter 150ms ease, transform 150ms ease;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.05);
+}
+
+.btn-accent {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+  background: var(--cdu-gold);
+  padding: 0 1.25rem;
+  font-weight: 700;
+  color: var(--cdu-ink);
+  transition: filter 150ms ease;
+}
+
+.btn-accent:hover {
+  filter: brightness(1.05);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  padding: 0 1.25rem;
+  font-weight: 700;
+  color: white;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: white;
+}
+
+.btn-solid {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+  background: var(--cdu-blue);
+  padding: 0 1.25rem;
+  font-weight: 700;
+  color: white;
+  transition: filter 150ms ease;
+}
+
+.btn-solid:hover {
+  filter: brightness(1.1);
+}
+
+.btn-outline {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+  border: 2px solid color-mix(in srgb, var(--cdu-blue) 28%, transparent);
+  padding: 0 1.25rem;
+  font-weight: 700;
+  color: var(--cdu-blue);
+  transition: background 150ms ease;
+}
+
+.btn-outline:hover {
+  background: var(--cdu-teal-10);
 }
 
 .wappen-flyer {
@@ -166,21 +332,40 @@ select:focus-visible {
 }
 
 .hero-fade-in-delay {
-  animation: fade-up 0.9s ease-out 0.2s both;
+  animation: fade-up 0.9s ease-out 0.18s both;
 }
 
 .hero-fade-in-delay-2 {
-  animation: fade-up 0.9s ease-out 0.4s both;
+  animation: fade-up 0.9s ease-out 0.36s both;
+}
+
+.hero-fade-in-delay-3 {
+  animation: fade-up 0.9s ease-out 0.52s both;
+}
+
+.bogen-reveal {
+  animation: bogen-draw 0.9s ease-out 0.28s both;
 }
 
 @keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(18px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes bogen-draw {
+  from {
+    opacity: 0;
+    transform: skewY(-18deg) scaleX(0.35);
+  }
+  to {
+    opacity: 1;
+    transform: skewY(-18deg) scaleX(1);
   }
 }
 
@@ -204,7 +389,9 @@ select:focus-visible {
   .coat-swing,
   .hero-fade-in,
   .hero-fade-in-delay,
-  .hero-fade-in-delay-2 {
+  .hero-fade-in-delay-2,
+  .hero-fade-in-delay-3,
+  .bogen-reveal {
     animation: none !important;
   }
 

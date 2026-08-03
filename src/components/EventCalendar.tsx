@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { SectionBanner } from "@/components/SectionBanner";
 import type { Event } from "@/db/schema";
 
 const WEEKDAYS = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
@@ -63,16 +64,18 @@ export function EventCalendar({ events }: { events: Event[] }) {
   return (
     <section
       aria-labelledby="calendar-heading"
-      className="rounded-xl border border-[color:var(--cdu-blue)]/10 bg-white p-4 shadow-sm sm:p-6"
+      className="scroll-mt-20 space-y-5"
     >
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 id="calendar-heading" className="font-display text-2xl text-[color:var(--cdu-blue)]">
-          Termine – {monthLabel}
-        </h2>
+      <SectionBanner tone="dark" kicker="Kalender" title="Termine" titleId="calendar-heading">
+        <span className="capitalize">{monthLabel}</span>
+      </SectionBanner>
+
+      <div className="bg-white p-4 sm:p-6">
+      <div className="flex flex-wrap items-center justify-end gap-3">
         <div className="flex gap-2">
           <button
             type="button"
-            className="min-h-11 rounded-lg border border-[color:var(--cdu-blue)]/20 px-3 font-medium text-[color:var(--cdu-blue)] hover:bg-[color:var(--cdu-surface)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--cdu-teal)]"
+            className="min-h-11 rounded border border-[color:var(--cdu-blue)]/20 px-3 font-semibold text-[color:var(--cdu-blue)] hover:bg-[color:var(--cdu-surface)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--cdu-teal)]"
             onClick={() =>
               setCursor(new Date(cursor.getFullYear(), cursor.getMonth() - 1, 1))
             }
@@ -82,14 +85,14 @@ export function EventCalendar({ events }: { events: Event[] }) {
           </button>
           <button
             type="button"
-            className="min-h-11 rounded-lg border border-[color:var(--cdu-blue)]/20 px-3 font-medium text-[color:var(--cdu-blue)] hover:bg-[color:var(--cdu-surface)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--cdu-teal)]"
+            className="min-h-11 rounded border border-[color:var(--cdu-blue)]/20 px-3 font-semibold text-[color:var(--cdu-blue)] hover:bg-[color:var(--cdu-surface)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--cdu-teal)]"
             onClick={() => setCursor(startOfMonth(new Date()))}
           >
             Heute
           </button>
           <button
             type="button"
-            className="min-h-11 rounded-lg border border-[color:var(--cdu-blue)]/20 px-3 font-medium text-[color:var(--cdu-blue)] hover:bg-[color:var(--cdu-surface)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--cdu-teal)]"
+            className="min-h-11 rounded border border-[color:var(--cdu-blue)]/20 px-3 font-semibold text-[color:var(--cdu-blue)] hover:bg-[color:var(--cdu-surface)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--cdu-teal)]"
             onClick={() =>
               setCursor(new Date(cursor.getFullYear(), cursor.getMonth() + 1, 1))
             }
@@ -123,15 +126,15 @@ export function EventCalendar({ events }: { events: Event[] }) {
               key={cell.key}
               role="gridcell"
               aria-label={`${cell.day}. ${monthLabel}${hasEvents ? `, ${dayEvents.length} Termin(e)` : ""}`}
-              className={`min-h-14 rounded-md border p-1 ${
+              className={`min-h-14 border p-1 ${
                 hasEvents
-                  ? "border-[color:var(--cdu-teal)] bg-[color:var(--cdu-teal)]/20"
-                  : "border-transparent bg-[color:var(--cdu-surface)]"
+                  ? "border-[color:var(--cdu-teal)] bg-[color:var(--cdu-teal)]/25"
+                  : "border-transparent bg-[color:var(--cdu-teal-10)]"
               }`}
             >
-              <span className="font-semibold text-[color:var(--cdu-blue)]">{cell.day}</span>
+              <span className="font-bold text-[color:var(--cdu-blue)]">{cell.day}</span>
               {hasEvents ? (
-                <span className="mt-1 block truncate text-[10px] text-[color:var(--cdu-blue)]">
+                <span className="mt-1 block truncate text-[10px] font-medium text-[color:var(--cdu-blue)]">
                   {dayEvents[0].title}
                 </span>
               ) : null}
@@ -141,7 +144,9 @@ export function EventCalendar({ events }: { events: Event[] }) {
       </div>
 
       <div className="mt-5">
-        <h3 className="font-semibold text-[color:var(--cdu-blue)]">Termine in diesem Monat</h3>
+        <h3 className="font-headline text-lg text-[color:var(--cdu-blue)]">
+          Termine in diesem Monat
+        </h3>
         {monthEvents.length === 0 ? (
           <p className="mt-2 text-sm text-[color:var(--cdu-blue)]/75">
             Keine eingetragenen Termine in diesem Monat.
@@ -151,9 +156,9 @@ export function EventCalendar({ events }: { events: Event[] }) {
             {monthEvents.map((event) => (
               <li
                 key={event.id}
-                className="rounded-lg border border-[color:var(--cdu-blue)]/10 bg-[color:var(--cdu-surface)] px-3 py-2"
+                className="border-l-4 border-[color:var(--cdu-gold)] bg-[color:var(--cdu-surface)] px-3 py-2"
               >
-                <p className="font-semibold text-[color:var(--cdu-blue)]">{event.title}</p>
+                <p className="font-bold text-[color:var(--cdu-blue)]">{event.title}</p>
                 <p className="text-sm text-[color:var(--cdu-blue)]/80">
                   <time dateTime={new Date(event.startsAt).toISOString()}>
                     {new Intl.DateTimeFormat("de-DE", {
@@ -173,6 +178,7 @@ export function EventCalendar({ events }: { events: Event[] }) {
             ))}
           </ul>
         )}
+      </div>
       </div>
     </section>
   );
