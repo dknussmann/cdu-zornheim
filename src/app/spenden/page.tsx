@@ -67,11 +67,8 @@ export default async function SpendenPage() {
               Möglichkeiten, die CDU Zornheim zu unterstützen.
             </p>
             <div className="pt-2">
-              <Link
-                href="/kontakt"
-                className="btn-solid"
-              >
-                Kontaktformular
+              <Link href="/kontakt" className="btn-solid">
+                Kontakt
               </Link>
             </div>
           </div>

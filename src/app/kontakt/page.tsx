@@ -47,6 +47,15 @@ export default async function KontaktPage() {
           </h2>
           <div className="space-y-3 text-[color:var(--cdu-blue)]/90">
             <p>
+              <strong>E-Mail:</strong>{" "}
+              <a
+                href="mailto:info@cdu-zornheim.de"
+                className="font-semibold underline underline-offset-2 hover:text-[color:var(--cdu-teal)]"
+              >
+                info@cdu-zornheim.de
+              </a>
+            </p>
+            <p>
               <strong>Gemeindeverwaltung (Rathaus):</strong>
               <br />
               Kirschgartenstraße 2
@@ -56,8 +65,16 @@ export default async function KontaktPage() {
               Tel. 06136 95294-0
             </p>
             <p>
-              Für Anliegen an den Ortsverband nutzen Sie bitte das Formular oben.
-              Termine und Neuigkeiten finden Sie auf der Startseite.
+              Für Anliegen an den Ortsverband schreiben Sie uns an{" "}
+              <a
+                href="mailto:info@cdu-zornheim.de"
+                className="font-semibold underline underline-offset-2 hover:text-[color:var(--cdu-teal)]"
+              >
+                info@cdu-zornheim.de
+              </a>
+              . Das Rathaus der Ortsgemeinde ist nicht die Anschrift des
+              Ortsverbands. Termine und Neuigkeiten finden Sie auf der
+              Startseite.
             </p>
           </div>
         </section>

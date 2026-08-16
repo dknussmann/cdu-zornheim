@@ -19,6 +19,14 @@ export function SiteFooter() {
         <p className="text-sm text-white/65">
           © {new Date().getFullYear()} CDU Ortsverband Zornheim
         </p>
+        <div className="flex flex-wrap gap-4 text-sm text-white/75">
+          <Link href="/impressum" className="hover:text-white hover:underline">
+            Impressum
+          </Link>
+          <Link href="/datenschutz" className="hover:text-white hover:underline">
+            Datenschutz
+          </Link>
+        </div>
       </div>
     </footer>
   );
