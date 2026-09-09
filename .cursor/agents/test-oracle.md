@@ -1,0 +1,1 @@
+/home/david/.cursor/agents/test-oracle.md

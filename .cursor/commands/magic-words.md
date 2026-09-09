@@ -1,0 +1,1 @@
+/home/david/.cursor/commands/magic-words.md

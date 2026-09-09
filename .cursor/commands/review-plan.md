@@ -1,0 +1,1 @@
+/home/david/.cursor/commands/review-plan.md
